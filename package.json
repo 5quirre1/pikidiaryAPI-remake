@@ -17,11 +17,9 @@
     },
     "keywords": [
       "pikidiary",
-      "api",
-      "vercel",
-      "serverless"
+      "api"
     ],
-    "author": "Your Name",
+    "author": "squirrel",
     "license": "MIT"
   }
   
