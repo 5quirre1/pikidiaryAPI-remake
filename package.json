@@ -1,0 +1,27 @@
+{
+    "name": "pikidiary-api",
+    "version": "1.0.0",
+    "description": "because api no real",
+    "main": "api/index.js",
+    "scripts": {
+      "start": "node api/index.js",
+      "dev": "vercel dev",
+      "deploy": "vercel deploy --prod"
+    },
+    "dependencies": {
+      "https": "^1.0.0",
+      "cheerio": "^1.0.0"
+    },
+    "devDependencies": {
+      "vercel": "^33.0.2"
+    },
+    "keywords": [
+      "pikidiary",
+      "api",
+      "vercel",
+      "serverless"
+    ],
+    "author": "Your Name",
+    "license": "MIT"
+  }
+  
