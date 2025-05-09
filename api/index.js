@@ -129,7 +129,7 @@ module.exports = (req, res) => {
                 }
 
                 let isVerified = false;
-                const verifiedImage = usernameSpan.parent().find('img[src="/img/icons/verified.png"]');
+                const verifiedImage = usernameSpan.find('img[src="/img/icons/verified.png"]');
                 if (verifiedImage.length > 0) {
                     isVerified = true;
                 }
@@ -178,16 +178,24 @@ module.exports = (req, res) => {
                 let badgeCount = 0;
                 const badgesList = [];
 
-                const badgeImages = usernameSpan.find('img[title^="Badge:"]');
-                badgeImages.each((index, imgElement) => {
+                const allUserBadges = usernameSpan.find('img');
+                allUserBadges.each((index, imgElement) => {
                     const badgeImg = $(imgElement);
                     const iconUrl = badgeImg.attr('src') ? `${baseUrl}${badgeImg.attr('src')}` : null;
                     const titleText = badgeImg.attr('title');
 
-                    if (titleText && titleText.startsWith('Badge: ')) {
-                        const parts = titleText.substring('Badge: '.length).split(' - ');
-                        const name = parts[0] ? parts[0].trim() : null;
-                        const description = parts.length > 1 ? parts.slice(1).join(' - ').trim() : null;
+                    if (titleText) {
+                        let name = null;
+                        let description = null;
+
+                        if (titleText.startsWith('Badge: ')) {
+                            const parts = titleText.substring('Badge: '.length).split(' - ');
+                            name = parts[0] ? parts[0].trim() : null;
+                            description = parts.length > 1 ? parts.slice(1).join(' - ').trim() : null;
+                        } else {
+                            name = titleText.trim();
+                            description = null;
+                        }
 
                         if (name) {
                             badgesList.push({
