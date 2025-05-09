@@ -97,6 +97,8 @@ module.exports = (req, res) => {
                 const $ = cheerio.load(data);
 
                 const usernameSpan = $('span[style="font-size: 18px; line-height: 12px; font-weight: bold; overflow-wrap: anywhere;"]');
+                const profView = $('.prof-view');
+                const profMain = $('.prof-main');
                 const extractedUsername = usernameSpan.text().trim();
 
                 let followersCount = null;
@@ -125,6 +127,15 @@ module.exports = (req, res) => {
                     const relativePfpPath = avatarImg.attr('src');
                     if (relativePfpPath) {
                         pfpUrl = `${baseUrl}${relativePfpPath}`;
+                    }
+                }
+
+                let bannerUrl = null;
+                const bannerImg = profMain.find('img[style*="object-fit: cover; width: 100%; height: 75px; box-sizing: border-box; padding: 2px; background-color: Var(--prof-section-background); border: var(--prof-border) 1px solid;"]');
+                if (bannerImg.length > 0) {
+                    const relativeBannerPath = bannerImg.attr('src');
+                    if (relativeBannerPath) {
+                        bannerUrl = `${baseUrl}${relativeBannerPath}`;
                     }
                 }
 
@@ -278,6 +289,9 @@ module.exports = (req, res) => {
                             case 'pfp':
                                 responseObject.pfp = pfpUrl;
                                 break;
+                            case 'banner':
+                                responseObject.banner = bannerUrl;
+                                break;
                             case 'isVerified':
                                 responseObject.isVerified = isVerified;
                                 break;
@@ -313,6 +327,7 @@ module.exports = (req, res) => {
                         followers: followersCount,
                         following: followingCount,
                         pfp: pfpUrl,
+                        banner: bannerUrl,
                         isVerified: isVerified,
                         bio: userBio,
                         loginStreak: loginStreak,
