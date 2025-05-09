@@ -84,7 +84,7 @@ module.exports = (req, res) => {
     const userIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
     const headers = {
-        'User-Agent': 'Mozilla/5.0 (compatible; MyPikidiaryScraper/1.0; +https://example.com)',
+        'User-Agent': 'Mozilla/5.0 (compatible; pikidiaryapi; +https://pikidiary-api.vercel.app/)',
         'X-Forwarded-For': userIp,
         'X-Real-IP': userIp,
         'Referer': baseUrl,
@@ -300,6 +300,7 @@ module.exports = (req, res) => {
                     });
                 } else {
                     responseObject = {
+                        userUrl: url,
                         username: extractedUsername,
                         followers: followersCount,
                         following: followingCount,
