@@ -1,7 +1,7 @@
 {
     "name": "pikidiary-api",
     "version": "1.0.0",
-    "description": "because api no real",
+    "description": "because api no real s",
     "main": "api/index.js",
     "scripts": {
       "start": "node api/index.js",
