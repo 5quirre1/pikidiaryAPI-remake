@@ -42,6 +42,8 @@ module.exports = (req, res) => {
     const showFields = query.show ? query.show.split(',').map(field => field.trim()) : [];
     const specificPostId = query.post_id;
 
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
     const baseUrl = 'https://pikidiary.lol';
     const url = `${baseUrl}/@${username}`;
 
