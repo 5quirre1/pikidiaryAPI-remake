@@ -99,9 +99,9 @@ module.exports = (req, res) => {
                 const $ = cheerio.load(data);
 
                 const usernameSpan = $('span[style="font-size: 18px; line-height: 12px; font-weight: bold; overflow-wrap: anywhere;"]');
-                const profView = $('.prof-view');
-                const profMain = $('.prof-main');
                 const extractedUsername = usernameSpan.text().trim();
+                const avatarImg = $('.avatar-cont .avatar');
+
 
                 let followersCount = null;
                 const followersLabel = $('.section-cont .profile-grid-label:contains("Followers")');
@@ -124,7 +124,6 @@ module.exports = (req, res) => {
                 }
 
                 let pfpUrl = null;
-                const avatarImg = $('.avatar-cont .avatar');
                 if (avatarImg.length > 0) {
                     const relativePfpPath = avatarImg.attr('src');
                     if (relativePfpPath) {
@@ -133,6 +132,7 @@ module.exports = (req, res) => {
                 }
 
                 let bannerUrl = null;
+                const profMain = $('.prof-main');
                 const bannerImg = profMain.find('img[style*="object-fit: cover; width: 100%; height: 75px; box-sizing: border-box; padding: 2px; background-color: Var(--prof-section-background); border: var(--prof-border) 1px solid;"]');
                 if (bannerImg.length > 0) {
                     const relativeBannerPath = bannerImg.attr('src');
@@ -267,6 +267,10 @@ module.exports = (req, res) => {
                 });
 
                 let responseObject = {};
+                let isInactive = false;
+                if(avatarImg.hasClass('inactive')){
+                    isInactive = true;
+                }
 
                 if (specificPostId) {
                     const foundPost = posts.find(post => post.id === specificPostId);
@@ -309,7 +313,7 @@ module.exports = (req, res) => {
                             case 'achievements':
                                 responseObject.achievements = achievementsList;
                                 break;
-                            case 'badgeCount':
+                             case 'badgeCount':
                                 responseObject.badgeCount = badgeCount;
                                 break;
                             case 'badges':
@@ -317,6 +321,9 @@ module.exports = (req, res) => {
                                 break;
                             case 'posts':
                                 responseObject.posts = posts.slice(0, 4);
+                                break;
+                            case 'isInactive':
+                                responseObject.isInactive = isInactive;
                                 break;
                             default:
                                 break;
@@ -331,6 +338,7 @@ module.exports = (req, res) => {
                         pfp: pfpUrl,
                         banner: bannerUrl,
                         isVerified: isVerified,
+                        isInactive: isInactive,
                         bio: userBio,
                         loginStreak: loginStreak,
                         achievementsCount: achievementsCount,
