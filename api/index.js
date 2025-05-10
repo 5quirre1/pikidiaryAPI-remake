@@ -82,6 +82,9 @@ module.exports = (req, res) => {
         });
     };
 
+    // email env = process.env.email;
+    // password env = process.env.password
+    
     // have to do this or it won't work, doesn't matter really, everyone already has your ip :p
     const userIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
