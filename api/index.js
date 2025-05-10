@@ -82,6 +82,9 @@ module.exports = (req, res) => {
         });
     };
 
+    // email env = process.env.email;
+    // password env = process.env.password
+    
     // have to do this or it won't work, doesn't matter really, everyone already has your ip :p
     const userIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
@@ -146,6 +149,24 @@ module.exports = (req, res) => {
                 if (verifiedImage.length > 0) {
                     isVerified = true;
                 }
+
+                /**
+                 * =============================================
+                 * This was added in by mpax235
+                 * =============================================
+                 */
+                let isAdmin = false;
+                const adminImage = usernameSpan.find('img[src="/img/icons/admin.png"]');
+                if (adminImage.length > 0) {
+                    isAdmin = true;
+                }
+
+                let isDonator = false;
+                const donatorImage = usernameSpan.find('img[src="/img/icons/donator.png"]');
+                if (donatorImage.length > 0) {
+                    isDonator = true;
+                }
+                /* ============================================= */
 
                 let userBio = null;
                 const bioDiv = $('.bio');
@@ -301,6 +322,12 @@ module.exports = (req, res) => {
                             case 'isVerified':
                                 responseObject.isVerified = isVerified;
                                 break;
+                            case 'isAdmin':
+                                responseObject.isAdmin = isAdmin;
+                                break;
+                            case 'isDonator':
+                                responseObject.isDonator = isDonator;
+                                break;
                             case 'bio':
                                 responseObject.bio = userBio;
                                 break;
@@ -337,7 +364,9 @@ module.exports = (req, res) => {
                         following: followingCount,
                         pfp: pfpUrl,
                         banner: bannerUrl,
+                        isAdmin: isAdmin,
                         isVerified: isVerified,
+                        isDonator: isDonator,
                         isInactive: isInactive,
                         bio: userBio,
                         loginStreak: loginStreak,

@@ -4,22 +4,21 @@
     "description": "because api no real s",
     "main": "api/index.js",
     "scripts": {
-      "start": "node api/index.js",
-      "dev": "vercel dev",
-      "deploy": "vercel deploy --prod"
+        "start": "node api/index.js",
+        "dev": "vercel dev",
+        "deploy": "vercel deploy --prod"
     },
     "dependencies": {
-      "https": "^1.0.0",
-      "cheerio": "^1.0.0"
+        "cheerio": "^1.0.0",
+        "https": "^1.0.0"
     },
     "devDependencies": {
-      "vercel": "^33.0.2"
+        "vercel": "^33.0.2"
     },
     "keywords": [
-      "pikidiary",
-      "api"
+        "pikidiary",
+        "api"
     ],
     "author": "squirrel",
     "license": "MIT"
-  }
-  
+}
