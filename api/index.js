@@ -244,6 +244,12 @@ module.exports = (req, res) => {
                 isVerified = true;
             }
 
+            let isLive = false;
+            const liveContainer = profMain.find('div[style*="width: 100%; min-height: 80px; border: 1px solid #D02222; box-sizing: border-box; position: relative;"]');
+            if (liveContainer.length > 0) {
+                isLive = true;
+            }
+
            /*
             * =============================================
             * This was added in by mpax235
@@ -415,6 +421,9 @@ module.exports = (req, res) => {
                         case 'banner':
                             responseObject.banner = bannerUrl;
                             break;
+                        case 'isLive':
+                            responseObject.isLive = isLive;
+                            break;
                         case 'isVerified':
                             responseObject.isVerified = isVerified;
                             break;
@@ -461,6 +470,7 @@ module.exports = (req, res) => {
                     following: followingCount,
                     pfp: pfpUrl,
                     banner: bannerUrl,
+                    isLive: isLive,
                     isVerified: isVerified,
                     isInactive: isInactive,
                     isAdmin: isAdmin,
