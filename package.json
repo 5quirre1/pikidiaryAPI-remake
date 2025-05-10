@@ -1,24 +1,25 @@
 {
-    "name": "pikidiary-api",
-    "version": "1.0.0",
-    "description": "because api no real s",
-    "main": "api/index.js",
-    "scripts": {
-        "start": "node api/index.js",
-        "dev": "vercel dev",
-        "deploy": "vercel deploy --prod"
-    },
-    "dependencies": {
-        "cheerio": "^1.0.0",
-        "https": "^1.0.0"
-    },
-    "devDependencies": {
-        "vercel": "^33.0.2"
-    },
-    "keywords": [
-        "pikidiary",
-        "api"
-    ],
-    "author": "squirrel",
-    "license": "MIT"
+  "name": "pikidiary-api",
+  "version": "1.0.0",
+  "description": "because api no real s",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js",
+    "dev": "vercel dev",
+    "deploy": "vercel deploy --prod"
+  },
+  "dependencies": {
+    "https": "^1.0.0",
+    "cheerio": "^1.0.0",
+    "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "vercel": "^33.0.2"
+  },
+  "keywords": [
+    "pikidiary",
+    "api"
+  ],
+  "author": "squirrel",
+  "license": "MIT"
 }
