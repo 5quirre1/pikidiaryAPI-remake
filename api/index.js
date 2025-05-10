@@ -46,8 +46,12 @@ module.exports = (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     const baseUrl = 'https://pikidiary.lol';
-    const url = `${baseUrl}/@${username}/?tab=me`;
+    let url = `${baseUrl}/@${username}`;
 
+    if (username == 'pikiapi') {
+        url += "?tab=me"; // since it's logged in, it's just collecting the following page; so it reads from ?tab=me :P
+    }
+    
     if (!username) {
         res.status(400).json({ error: 'username is required' });
         return;
@@ -62,6 +66,11 @@ module.exports = (req, res) => {
 
             const request = https.request(url, options, (response) => {
                 const { statusCode, headers: responseHeaders } = response;
+
+                if (statusCode === 404) {
+                    reject({ statusCode: 404, message: 'user not found' });
+                    return;
+                }
 
                 let data = '';
                 response.on('data', (chunk) => {
@@ -134,11 +143,25 @@ module.exports = (req, res) => {
             };
 
             const userPageResponse = await fetchData(url, authenticatedHeaders);
-            const userId = await extractUserId(userPageResponse.data);
+            
+            if (userPageResponse.data.includes('User not found')) {
+                res.status(404).json({ error: 'user not found' });
+                return;
+            }
+            
+            let userId = await extractUserId(userPageResponse.data);
+            
+            if (username === 'pikiapi') {
+                userId = "currently not possible";
+            }
 
             processUserPage(userPageResponse.data, userId);
 
         } catch (error) {
+            if (error.statusCode === 404) {
+                res.status(404).json({ error: 'user not found' });
+                return;
+            }
             console.error("auth or data fetch error: ", error);
             res.status(500).json({ error: error.message || 'failed to auth or fetch data' });
         }
@@ -161,9 +184,20 @@ module.exports = (req, res) => {
     const processUserPage = (data, userId) => {
         try {
             const $ = cheerio.load(data);
+            
+            if (data.includes('User not found')) {
+                res.status(404).json({ error: 'user not found' });
+                return;
+            }
 
             const usernameSpan = $('span[style="font-size: 18px; line-height: 12px; font-weight: bold; overflow-wrap: anywhere;"]');
             const extractedUsername = usernameSpan.text().trim();
+            
+            if (!extractedUsername) {
+                res.status(404).json({ error: 'user not found' });
+                return;
+            }
+            
             const avatarImg = $('.avatar-cont .avatar');
 
             let followersCount = null;
@@ -454,18 +488,27 @@ module.exports = (req, res) => {
         console.warn("auth didn't work, doing normal (less data)");
         fetchData(url, standardHeaders)
             .then(response => {
-
+                if (response.data.includes('User not found')) {
+                    res.status(404).json({ error: 'user not found' });
+                    return;
+                }
+                
                 extractUserId(response.data)
                     .then(userId => {
+                        if (username === 'pikiapi') {
+                            userId = "currently not possible";
+                        }
                         processUserPage(response.data, userId);
                     })
                     .catch(err => {
-                        console.error("Error extracting userId:", err);
+                        console.error("error getting userid:", err);
                         processUserPage(response.data, null);
                     });
             })
             .catch(error => {
-                if (error.statusCode) {
+                if (error.statusCode === 404) {
+                    res.status(404).json({ error: 'user not found' });
+                } else if (error.statusCode) {
                     res.status(error.statusCode).json({ error: `failed to retrieve data. status code: ${error.statusCode}` });
                 } else {
                     res.status(500).json({ error: error.message });
