@@ -46,7 +46,7 @@ module.exports = (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     const baseUrl = 'https://pikidiary.lol';
-    const url = `${baseUrl}/@${username}`;
+    const url = `${baseUrl}/@${username}/?tab=me`;
 
     if (!username) {
         res.status(400).json({ error: 'username is required' });
