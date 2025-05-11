@@ -364,7 +364,7 @@ module.exports = (req, res) => {
                 const moreLiveData = liveSection.find('div');
 
                 const liveTitle = liveData$('#title-text').text().trim();
-                const liveViewCount = liveData$('#view-count').text().trim();
+                const liveViewCount = parseInt(liveData$('#view-count').text().trim(), 10);
 
                 /* i have no clue why this doesnt work, tried getting it using the id too...
                 const liveDesc = moreLiveData.find('span').text();
