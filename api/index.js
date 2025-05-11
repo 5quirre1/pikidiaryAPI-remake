@@ -112,6 +112,8 @@ module.exports = (req, res) => {
         'Connection': 'keep-alive',
     };
 
+    let authenticatedHeaders;
+
     const authenticateAndFetchData = async () => {
         try {
             const loginPageResponse = await fetchData(`${baseUrl}/login`, standardHeaders);
@@ -137,7 +139,7 @@ module.exports = (req, res) => {
                 throw new Error('login failed');
             }
 
-            const authenticatedHeaders = {
+            authenticatedHeaders = {
                 ...standardHeaders,
                 'Cookie': cookies.join('; ')
             };
@@ -181,7 +183,7 @@ module.exports = (req, res) => {
         return userId;
     };
 
-    const processUserPage = (data, userId) => {
+    const processUserPage = async (data, userId) => {
         try {
             const $ = cheerio.load(data);
             
@@ -344,6 +346,46 @@ module.exports = (req, res) => {
                 }
             });
 
+            const liveInfo = [];
+            const liveInfoContainer = liveContainer.find('div[style*="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: fit-content; height: fit-content; text-align: center;"]');
+
+            if (isLive) {
+                
+                try {
+                    
+                const liveLink = liveInfoContainer.find('a[style*="font-size: 22px; color: #D02222;"]');
+                const ExtractedLiveLink = `${baseUrl}${liveLink.attr('href')}`;
+                const liveId = liveLink.attr('href').slice(6);
+
+                const livePageResponse = await fetchData(ExtractedLiveLink, authenticatedHeaders);
+                const liveData$ = cheerio.load(livePageResponse.data);
+
+                const liveSection = liveData$('.section');
+                const moreLiveData = liveSection.find('div');
+
+                const liveTitle = liveData$('#title-text').text().trim();
+                const liveViewCount = liveData$('#view-count').text().trim();
+
+                /* i have no clue why this doesnt work, tried getting it using the id too...
+                const liveDesc = moreLiveData.find('span').text();
+                */
+
+                liveInfo.push({
+                    author: username,
+                    title: liveTitle,
+                    views: liveViewCount,
+                    link: ExtractedLiveLink,
+                    id: liveId
+                })
+            }
+            catch (error) {
+                alert(error)
+            }
+
+            // too bad skid you cant get ts
+            authenticatedHeaders = null;
+            }
+
             const posts = [];
             $('.post').each((index, element) => {
                 const post = $(element);
@@ -421,9 +463,6 @@ module.exports = (req, res) => {
                         case 'banner':
                             responseObject.banner = bannerUrl;
                             break;
-                        case 'isLive':
-                            responseObject.isLive = isLive;
-                            break;
                         case 'isVerified':
                             responseObject.isVerified = isVerified;
                             break;
@@ -454,6 +493,12 @@ module.exports = (req, res) => {
                         case 'isDonator':
                             responseObject.isDonator = isDonator;
                             break;
+                        case 'isLive':
+                            responseObject.isLive = isLive;
+                            break;
+                        case 'liveInfo':
+                            responseObject.liveInfo = liveInfo;
+                            break;
                         case 'isInactive':
                             responseObject.isInactive = isInactive;
                             break;
@@ -462,6 +507,8 @@ module.exports = (req, res) => {
                     }
                 });
             } else {
+
+                if (isLive) {
                 responseObject = {
                     userId: userId,
                     userUrl: url,
@@ -470,11 +517,12 @@ module.exports = (req, res) => {
                     following: followingCount,
                     pfp: pfpUrl,
                     banner: bannerUrl,
-                    isLive: isLive,
                     isVerified: isVerified,
                     isInactive: isInactive,
                     isAdmin: isAdmin,
                     isDonator: isDonator,
+                    isLive: isLive,
+                    liveInfo: liveInfo,
                     bio: userBio,
                     loginStreak: loginStreak,
                     achievementsCount: achievementsCount,
@@ -483,6 +531,31 @@ module.exports = (req, res) => {
                     badges: badgesList,
                     posts: posts.slice(0, 4),
                 };
+            }
+
+            else {
+                responseObject = {
+                    userId: userId,
+                    userUrl: url,
+                    username: extractedUsername,
+                    followers: followersCount,
+                    following: followingCount,
+                    pfp: pfpUrl,
+                    banner: bannerUrl,
+                    isVerified: isVerified,
+                    isInactive: isInactive,
+                    isAdmin: isAdmin,
+                    isDonator: isDonator,
+                    isLive: isLive,
+                    bio: userBio,
+                    loginStreak: loginStreak,
+                    achievementsCount: achievementsCount,
+                    achievements: achievementsList,
+                    badgeCount: badgeCount,
+                    badges: badgesList,
+                    posts: posts.slice(0, 4),
+                };
+            }
             }
             res.status(200).json(responseObject);
 
