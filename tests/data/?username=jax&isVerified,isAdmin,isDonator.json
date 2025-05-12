@@ -1,0 +1,104 @@
+{
+    "userId": 15,
+    "userUrl": "https://pikidiary.lol/@jax",
+    "username": "jax",
+    "followers": 666,
+    "following": 892,
+    "pfp": "https://pikidiary.lol/uploads/avatars/resized-1745913536357.jpg",
+    "banner": "https://pikidiary.lol/uploads/banners/resized-1745858859550.jpg",
+    "isVerified": true,
+    "isInactive": false,
+    "isAdmin": true,
+    "isDonator": true,
+    "isLive": false,
+    "bio": "<!-- <style>body, body.dark {background: url('https://bitview.lol?url=https://f.feridinha.com/w0t2M.gif') repeat fixed}</style> --><!-- <style>body, body.dark {background: url('https://bitview.lol?url=https://files.catbox.moe/5ykye0.jpg') repeat fixed}</style> --><style>body, body.dark {background: #750c18}</style><style>body, body.dark {cursor: url('https://bitview.lol?url=https://files.catbox.moe/mdi7ix.png'), auto}</style><img src=\"https://bitview.lol/?url=https%3A%2F%2Ffiles.catbox.moe%2Ftdcl0e.png\" alt=\"Image\"> <!-- header --><img src=\"https://bitview.lol/?url=https%3A%2F%2Ffiles.catbox.moe%2Fcx1pux.png\" alt=\"Image\"><img src=\"https://bitview.lol/?url=https%3A%2F%2Ff.feridinha.com%2Fg82DK.gif\" alt=\"Image\"> <!-- gif --><img src=\"https://bitview.lol/?url=https%3A%2F%2Ff.feridinha.com%2FqJTa8.png\" alt=\"Image\"> <!-- divider --><div class=\"br\"></div><span style=\"font-size: 13px; line-height: 14px;\">&nbsp;</span><div class=\"br\"></div><img src=\"https://bitview.lol/?url=https%3A%2F%2Ffiles.catbox.moe%2F88z0mx.png\" alt=\"Image\"> <!-- header --><a href=\"https://graybox.lol\" target=\"_blank\"><img src=\"https://bitview.lol/?url=https%3A%2F%2Ff.feridinha.com%2FM8dtf.png\" alt=\"Image\"></a><a href=\"https://cash.app/$5jax5\" target=\"_blank\"><img src=\"https://bitview.lol/?url=https%3A%2F%2Ff.feridinha.com%2FAb2eI.png\" alt=\"Image\"></a><img src=\"https://bitview.lol/?url=https%3A%2F%2Ff.feridinha.com%2FqJTa8.png\" alt=\"Image\"> <!-- spacer --><a href=\"https://bioring.pages.dev/webring?page=@jax&amp;direction=bak\" target=\"_blank\"><img src=\"https://bitview.lol/?url=https%3A%2F%2Fbioring.pages.dev%2Fpkback.png\" alt=\"Image\"></a><a href=\"https://bioring.pages.dev\" target=\"_blank\"><img src=\"https://bitview.lol/?url=https%3A%2F%2Fbioring.pages.dev%2Fpkringmain.png\" alt=\"Image\"></a><a href=\"https://bioring.pages.dev/webring?page=@jax&amp;direction=fwd\" target=\"_blank\"><img src=\"https://bitview.lol/?url=https%3A%2F%2Fbioring.pages.dev%2Fpkringfw.png\" alt=\"Image\"></a><img src=\"https://bitview.lol/?url=https%3A%2F%2Ff.feridinha.com%2FqJTa8.png\" alt=\"Image\"><!-- <a href=\"https://tamanotchi.world/17048c\" target=\"_blank\"><img src=\"https://tamanotchi.world/i/17048\" alt=\"Image\"></a>\n<img src=\"https://img.hotimg.com/imageb0fded81572d3069.png\" alt=\"Image\"> --><a href=\"https://last.fm/user/jax_0\" target=\"_blank\"><img src=\"https://bitview.lol/?url=https%3A%2F%2Flfm.graybox.lol%2F%3Fusername%3Djax_0%26height%3D50\" alt=\"Image\"></a>",
+    "loginStreak": 97,
+    "achievementsCount": 3,
+    "achievements": [
+        {
+            "name": "Buggy",
+            "description": "Lock a reply",
+            "iconUrl": "https://pikidiary.lol/img/achi/buggy.png"
+        },
+        {
+            "name": "#soretro",
+            "description": "Join before 10/10/24",
+            "iconUrl": "https://pikidiary.lol/img/achi/retro.png"
+        },
+        {
+            "name": "Welcome!",
+            "description": "Create a PikiDiary account",
+            "iconUrl": "https://pikidiary.lol/img/achi/welcome.gif"
+        }
+    ],
+    "badgeCount": 3,
+    "badges": [
+        {
+            "name": "\ud835\udde7\ud835\udddb\ud835\uddd8 Admin",
+            "description": null,
+            "iconUrl": "https://pikidiary.lol/img/icons/admin.png"
+        },
+        {
+            "name": "Verified",
+            "description": null,
+            "iconUrl": "https://pikidiary.lol/img/icons/verified.png"
+        },
+        {
+            "name": "DONO",
+            "description": null,
+            "iconUrl": "https://pikidiary.lol/img/icons/donator.png"
+        }
+    ],
+    "posts": [
+        {
+            "id": "187790",
+            "url": "https://pikidiary.lol/posts/187790",
+            "author": "jax",
+            "content": "",
+            "timestamp": "Mon May 12 2025 15:36:32 GMT+0000 (GMT)",
+            "images": [
+                "https://bitview.lol/?url=https%3A%2F%2Ffiles.catbox.moe%2Fbos0nj.png"
+            ],
+            "likes": 11,
+            "comments": 4,
+            "isPinned": false,
+            "isLocked": false
+        },
+        {
+            "id": "187773",
+            "url": "https://pikidiary.lol/posts/187773",
+            "author": "jax",
+            "content": "remember when PikiDiary was called PickleDiary and everything was pickled? \u2764\ufe0f\ud83d\ude06\u270c\ufe0f Those were the times!",
+            "timestamp": "Mon May 12 2025 15:29:57 GMT+0000 (GMT)",
+            "images": [],
+            "likes": 6,
+            "comments": 4,
+            "isPinned": false,
+            "isLocked": false
+        },
+        {
+            "id": "187771",
+            "url": "https://pikidiary.lol/posts/187771",
+            "author": "jax",
+            "content": "744 hours till school ends",
+            "timestamp": "Mon May 12 2025 15:26:48 GMT+0000 (GMT)",
+            "images": [],
+            "likes": 9,
+            "comments": 0,
+            "isPinned": false,
+            "isLocked": false
+        },
+        {
+            "id": "187747",
+            "url": "https://pikidiary.lol/posts/187747",
+            "author": "jax",
+            "content": "@yac000o capelitter",
+            "timestamp": "Mon May 12 2025 14:41:00 GMT+0000 (GMT)",
+            "images": [],
+            "likes": 2,
+            "comments": 0,
+            "isPinned": false,
+            "isLocked": false
+        }
+    ]
+}
