@@ -369,6 +369,7 @@ module.exports = (req, res) => {
                 /* i have no clue why this doesnt work, tried getting it using the id too...
                 const liveDesc = moreLiveData.find('span').text();
                 */
+                // i'll fix later dw
 
                 liveInfo.push({
                     author: username,
