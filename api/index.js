@@ -37,6 +37,14 @@ const https = require('https');
 const cheerio = require('cheerio');
 const querystring = require('querystring');
 
+const cache = new Map();
+const CACHE_TTL = 60 * 1000; //1 minute cache to not destory pikidiary server
+
+
+const generateCacheKey = (username, showFields, specificPostId) => {
+    return `${username}:${showFields.join(',')}:${specificPostId || ''}`;
+};
+
 module.exports = (req, res) => {
     const { query } = req;
     const username = query.username;
@@ -51,10 +59,28 @@ module.exports = (req, res) => {
     if (username == 'pikiapi') {
         url += "?tab=me"; // since it's logged in, it's just collecting the following page; so it reads from ?tab=me :P
     }
-    
+
     if (!username) {
         res.status(400).json({ error: 'username is required' });
         return;
+    }
+
+    // cache
+    const cacheKey = generateCacheKey(username, showFields, specificPostId);
+    const cachedResponse = cache.get(cacheKey);
+
+    if (cachedResponse) {
+        // use cache
+        const { data, timestamp } = cachedResponse;
+        const now = Date.now();
+
+        if (now - timestamp < CACHE_TTL) {
+            res.status(200).json(data);
+            return;
+        } else {
+            // remove cache entry
+            cache.delete(cacheKey);
+        }
     }
 
     const fetchData = (url, headers, method = 'GET', postData = null) => {
@@ -100,7 +126,7 @@ module.exports = (req, res) => {
 
     const email = process.env.email;
     const password = process.env.password;
-    
+
     // have to do this or it won't work, doesn't matter really, everyone already has your ip :p
     const userIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
@@ -145,14 +171,14 @@ module.exports = (req, res) => {
             };
 
             const userPageResponse = await fetchData(url, authenticatedHeaders);
-            
+
             if (userPageResponse.data.includes('User not found')) {
                 res.status(404).json({ error: 'user not found' });
                 return;
             }
-            
+
             let userId = await extractUserId(userPageResponse.data);
-            
+
             if (username === 'pikiapi') {
                 userId = "currently not possible";
             }
@@ -186,7 +212,7 @@ module.exports = (req, res) => {
     const processUserPage = async (data, userId) => {
         try {
             const $ = cheerio.load(data);
-            
+
             if (data.includes('User not found')) {
                 res.status(404).json({ error: 'user not found' });
                 return;
@@ -194,12 +220,12 @@ module.exports = (req, res) => {
 
             const usernameSpan = $('span[style="font-size: 18px; line-height: 12px; font-weight: bold; overflow-wrap: anywhere;"]');
             const extractedUsername = usernameSpan.text().trim();
-            
+
             if (!extractedUsername) {
                 res.status(404).json({ error: 'user not found' });
                 return;
             }
-            
+
             const avatarImg = $('.avatar-cont .avatar');
 
             let followersCount = null;
@@ -252,11 +278,11 @@ module.exports = (req, res) => {
                 isLive = true;
             }
 
-           /*
-            * =============================================
-            * This was added in by mpax235
-            * =============================================
-            */
+            /*
+             * =============================================
+             * This was added in by mpax235
+             * =============================================
+             */
 
             let isAdmin = false;
             const adminImage = usernameSpan.find('img[src="/img/icons/admin.png"]');
@@ -350,41 +376,43 @@ module.exports = (req, res) => {
             const liveInfoContainer = liveContainer.find('div[style*="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: fit-content; height: fit-content; text-align: center;"]');
 
             if (isLive) {
-                
                 try {
-                    
-                const liveLink = liveInfoContainer.find('a[style*="font-size: 22px; color: #D02222;"]');
-                const ExtractedLiveLink = `${baseUrl}${liveLink.attr('href')}`;
-                const liveId = liveLink.attr('href').slice(6);
+                    const liveLink = liveInfoContainer.find('a[style*="font-size: 22px; color: #D02222;"]');
+                    const ExtractedLiveLink = `${baseUrl}${liveLink.attr('href')}`;
+                    const liveId = liveLink.attr('href').slice(6);
 
-                const livePageResponse = await fetchData(ExtractedLiveLink, authenticatedHeaders);
-                const liveData$ = cheerio.load(livePageResponse.data);
+                    const livePageResponse = await fetchData(ExtractedLiveLink, authenticatedHeaders);
+                    const liveData$ = cheerio.load(livePageResponse.data);
 
-                const liveSection = liveData$('.section');
-                const moreLiveData = liveSection.find('div');
+                    const liveTitle = liveData$('#title-text').text().trim();
+                    const liveViewCount = parseInt(liveData$('#view-count').text().trim(), 10);
 
-                const liveTitle = liveData$('#title-text').text().trim();
-                const liveViewCount = parseInt(liveData$('#view-count').text().trim(), 10);
+                    // fixed :D
+                    let liveDesc = null;
+                    const descriptionDiv = liveData$('div.section[style*="flex-shrink: 1; overflow-y: auto; box-sizing: border-box; height: 63px; padding-top: 8px; border-top: 1px solid #CCC; font-size: 12px;"]');
 
-                /* i have no clue why this doesnt work, tried getting it using the id too...
-                const liveDesc = moreLiveData.find('span').text();
-                */
-                // i'll fix later dw
+                    if (descriptionDiv.length > 0) {
+                        const descText = descriptionDiv.find('div b:contains("Description: ")').parent().text().trim();
+                        if (descText) {
+                            liveDesc = descText.replace('Description: ', '').trim();
+                        }
+                    }
 
-                liveInfo.push({
-                    author: username,
-                    title: liveTitle,
-                    views: liveViewCount,
-                    link: ExtractedLiveLink,
-                    id: liveId
-                })
-            }
-            catch (error) {
-                alert(error)
-            }
+                    liveInfo.push({
+                        author: username,
+                        title: liveTitle,
+                        description: liveDesc,
+                        views: liveViewCount,
+                        link: ExtractedLiveLink,
+                        id: liveId
+                    });
+                }
+                catch (error) {
+                    console.error("Error fetching live data:", error);
+                }
 
-            // too bad skid you cant get ts
-            authenticatedHeaders = null;
+                // too bad skid you cant get ts
+                authenticatedHeaders = null;
             }
 
             const posts = [];
@@ -508,56 +536,62 @@ module.exports = (req, res) => {
                     }
                 });
             } else {
-
                 if (isLive) {
-                responseObject = {
-                    userId: userId,
-                    userUrl: url,
-                    username: extractedUsername,
-                    followers: followersCount,
-                    following: followingCount,
-                    pfp: pfpUrl,
-                    banner: bannerUrl,
-                    isVerified: isVerified,
-                    isInactive: isInactive,
-                    isAdmin: isAdmin,
-                    isDonator: isDonator,
-                    isLive: isLive,
-                    liveInfo: liveInfo,
-                    bio: userBio,
-                    loginStreak: loginStreak,
-                    achievementsCount: achievementsCount,
-                    achievements: achievementsList,
-                    badgeCount: badgeCount,
-                    badges: badgesList,
-                    posts: posts.slice(0, 4),
-                };
+                    responseObject = {
+                        userId: userId,
+                        userUrl: url,
+                        username: extractedUsername,
+                        followers: followersCount,
+                        following: followingCount,
+                        pfp: pfpUrl,
+                        banner: bannerUrl,
+                        isVerified: isVerified,
+                        isInactive: isInactive,
+                        isAdmin: isAdmin,
+                        isDonator: isDonator,
+                        isLive: isLive,
+                        liveInfo: liveInfo,
+                        bio: userBio,
+                        loginStreak: loginStreak,
+                        achievementsCount: achievementsCount,
+                        achievements: achievementsList,
+                        badgeCount: badgeCount,
+                        badges: badgesList,
+                        posts: posts.slice(0, 4),
+                    };
+                } else {
+                    responseObject = {
+                        userId: userId,
+                        userUrl: url,
+                        username: extractedUsername,
+                        followers: followersCount,
+                        following: followingCount,
+                        pfp: pfpUrl,
+                        banner: bannerUrl,
+                        isVerified: isVerified,
+                        isInactive: isInactive,
+                        isAdmin: isAdmin,
+                        isDonator: isDonator,
+                        isLive: isLive,
+                        bio: userBio,
+                        loginStreak: loginStreak,
+                        achievementsCount: achievementsCount,
+                        achievements: achievementsList,
+                        badgeCount: badgeCount,
+                        badges: badgesList,
+                        posts: posts.slice(0, 4),
+                    };
+                }
             }
 
-            else {
-                responseObject = {
-                    userId: userId,
-                    userUrl: url,
-                    username: extractedUsername,
-                    followers: followersCount,
-                    following: followingCount,
-                    pfp: pfpUrl,
-                    banner: bannerUrl,
-                    isVerified: isVerified,
-                    isInactive: isInactive,
-                    isAdmin: isAdmin,
-                    isDonator: isDonator,
-                    isLive: isLive,
-                    bio: userBio,
-                    loginStreak: loginStreak,
-                    achievementsCount: achievementsCount,
-                    achievements: achievementsList,
-                    badgeCount: badgeCount,
-                    badges: badgesList,
-                    posts: posts.slice(0, 4),
-                };
-            }
-            }
+            // Store the response in cache
+            cache.set(cacheKey, {
+                data: responseObject,
+                timestamp: Date.now()
+            });
+
+            // Add cache header to response
+            res.setHeader('X-Cache', 'MISS');
             res.status(200).json(responseObject);
 
         } catch (error) {
@@ -576,7 +610,7 @@ module.exports = (req, res) => {
                     res.status(404).json({ error: 'user not found' });
                     return;
                 }
-                
+
                 extractUserId(response.data)
                     .then(userId => {
                         if (username === 'pikiapi') {
