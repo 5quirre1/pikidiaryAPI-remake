@@ -38,8 +38,7 @@ const cheerio = require('cheerio');
 const querystring = require('querystring');
 
 const cache = new Map();
-const CACHE_TTL = 60 * 1000; //1 minute cache to not destory pikidiary server
-
+const CACHE_TTL = 7 * 60 * 1000; // 7 minutes cache to not destroy pikidiary server
 
 const generateCacheKey = (username, showFields, specificPostId) => {
     return `${username}:${showFields.join(',')}:${specificPostId || ''}`;
