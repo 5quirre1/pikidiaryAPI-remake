@@ -303,6 +303,34 @@ module.exports = (req, res) => {
                 userBio = bioDiv.html().trim();
             }
 
+
+            // user background showing !!!
+            let userBackground = null;
+            if (bioDiv.length > 0) {
+                const styleTag = bioDiv.find('style');
+                if (styleTag.length > 0) {
+                    const styleContent = styleTag.html();
+                    const backgroundMatch = styleContent.match(/background:\s*([^}]*)/);
+                    if (backgroundMatch && backgroundMatch[1]) {
+                        userBackground = backgroundMatch[1].trim();
+
+                        if (userBackground.includes('#')) {
+                            // color
+                            const colorMatch = userBackground.match(/#[a-fA-F0-9]+/);
+                            if (colorMatch) {
+                                userBackground = colorMatch[0];
+                            }
+                        } else if (userBackground.includes('url(')) {
+                            // background url
+                            const urlMatch = userBackground.match(/url\(['"]?(.*?)['"]?\)/);
+                            if (urlMatch && urlMatch[1]) {
+                                userBackground = urlMatch[1];
+                            }
+                        }
+                    }
+                }
+            }
+
             let loginStreak = null;
             const streakContainer = $('div[style*="background: #FFF4E5;"][style*="border: solid 1px #FFA726;"]');
             if (streakContainer.length > 0) {
@@ -491,6 +519,9 @@ module.exports = (req, res) => {
                         case 'banner':
                             responseObject.banner = bannerUrl;
                             break;
+                        case 'background':
+                            responseObject.background = userBackground;
+                            break;
                         case 'isVerified':
                             responseObject.isVerified = isVerified;
                             break;
@@ -544,6 +575,7 @@ module.exports = (req, res) => {
                         following: followingCount,
                         pfp: pfpUrl,
                         banner: bannerUrl,
+                        background: userBackground,
                         isVerified: isVerified,
                         isInactive: isInactive,
                         isAdmin: isAdmin,
@@ -567,6 +599,7 @@ module.exports = (req, res) => {
                         following: followingCount,
                         pfp: pfpUrl,
                         banner: bannerUrl,
+                        background: userBackground,
                         isVerified: isVerified,
                         isInactive: isInactive,
                         isAdmin: isAdmin,
