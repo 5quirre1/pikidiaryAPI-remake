@@ -1,0 +1,82 @@
+{
+    "userId": 334,
+    "userUrl": "https://pikidiary.lol/@hacks.guide",
+    "username": "hacks.guide",
+    "followers": 121,
+    "following": 505,
+    "pfp": "https://pikidiary.lol/uploads/avatars/resized-1747111934528.jpg",
+    "banner": "https://pikidiary.lol/uploads/banners/resized-1746790523578.jpg",
+    "background": "https://bitview.lol?url=https://raw.githubusercontent.com/Nomaakip/sigma/refs/heads/main/0dxjisjly0q91.png",
+    "isVerified": false,
+    "isInactive": false,
+    "isAdmin": false,
+    "isDonator": false,
+    "isLive": false,
+    "bio": "<style>body, body.dark {background: url('https://bitview.lol?url=https://raw.githubusercontent.com/Nomaakip/sigma/refs/heads/main/0dxjisjly0q91.png') repeat fixed}</style>UID: 334<style>body, body.dark {cursor: url('https://bitview.lol?url=https://images.pling.com/img/00/00/76/24/80/2124099/preview.gif'), auto}</style><marquee scrollamount="3">swag&nbsp;</marquee>------------------<div class="br"></div>i am feeling&nbsp;<a href="https://www.imood.com/users/nomaakip" target="_blank"><img src="https://bitview.lol/?url=https%3A%2F%2Fmoods.imood.com%2Fdisplay%2Funame-nomaakip%2Fimood.gif" alt="Image"></a>------------------<div class="br"></div><a href="https://bioring.pages.dev/webring?page=@hacks.guide&amp;direction=bak" target="_blank"><img src="https://bitview.lol/?url=https%3A%2F%2Fbioring.pages.dev%2Fpkback.png" alt="Image"></a><a href="https://bioring.pages.dev" target="_blank"><img src="https://bitview.lol/?url=https%3A%2F%2Fbioring.pages.dev%2Fpkringmain.png" alt="Image"></a><a href="https://bioring.pages.dev/webring?page=@hacks.guide&amp;direction=fwd" target="_blank"><img src="https://bitview.lol/?url=https%3A%2F%2Fbioring.pages.dev%2Fpkringfw.png" alt="Image"></a>lastfm<a href="https://last.fm/user/nomaaakip" target="_blank"><img src="https://bitview.lol/?url=https%3A%2F%2Flast-fm-ruby.vercel.app%2F%3Fusername%3Dnomaaakip%26bg%3D240046%26cardBg%3D3C096C%26primary%3DFFFFFF%26secondary%3DE0AAFF%26accent%3D9D4EDD%26playing%3D9D4EDD%26recently%3DFF5E5B%26round%3D24%26titleSize%3D22%26rid%3D13cd2abd" alt="Image"></a><marquee scrollamount="3">lazy to make a good bio</marquee>",
+    "loginStreak": 104,
+    "achievementsCount": 2,
+    "achievements": [
+        {
+            "name": "Buggy",
+            "description": "Lock a reply",
+            "iconUrl": "https://pikidiary.lol/img/achi/buggy.png"
+        },
+        {
+            "name": "Welcome!",
+            "description": "Create a PikiDiary account",
+            "iconUrl": "https://pikidiary.lol/img/achi/welcome.gif"
+        }
+    ],
+    "badgeCount": 0,
+    "badges": [],
+    "posts": [
+        {
+            "id": "192197",
+            "url": "https://pikidiary.lol/posts/192197",
+            "author": "hacks.guide",
+            "content": "@kiwikytty what",
+            "timestamp": "Sun May 18 2025 19:03:53 GMT+0000 (GMT)",
+            "images": [],
+            "likes": 3,
+            "comments": 0,
+            "isPinned": false,
+            "isLocked": false
+        },
+        {
+            "id": "192164",
+            "url": "https://pikidiary.lol/posts/192164",
+            "author": "hacks.guide",
+            "content": "@hacks.guide test",
+            "timestamp": "Sun May 18 2025 18:38:16 GMT+0000 (GMT)",
+            "images": [],
+            "likes": 1,
+            "comments": 0,
+            "isPinned": false,
+            "isLocked": false
+        },
+        {
+            "id": "192163",
+            "url": "https://pikidiary.lol/posts/192163",
+            "author": "hacks.guide",
+            "content": "test",
+            "timestamp": "Sun May 18 2025 18:38:09 GMT+0000 (GMT)",
+            "images": [],
+            "likes": 2,
+            "comments": 3,
+            "isPinned": false,
+            "isLocked": false
+        },
+        {
+            "id": "192074",
+            "url": "https://pikidiary.lol/posts/192074",
+            "author": "hacks.guide",
+            "content": "@maddox reminded me that i still didnt update atmosphere and hekate😭",
+            "timestamp": "Sun May 18 2025 15:19:06 GMT+0000 (GMT)",
+            "images": [],
+            "likes": 3,
+            "comments": 0,
+            "isPinned": false,
+            "isLocked": false
+        }
+    ]
+}
