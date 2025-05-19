@@ -1,0 +1,105 @@
+{
+    "userId": 47,
+    "userUrl": "https://pikidiary.lol/@squirrel",
+    "username": "squirrel",
+    "followers": 91,
+    "following": 218,
+    "pfp": "https://pikidiary.lol/uploads/avatars/resized-1746758553478.jpg",
+    "banner": "https://pikidiary.lol/uploads/banners/resized-1741846780165.jpg",
+    "background": "#1b263b",
+    "isVerified": false,
+    "isInactive": false,
+    "isAdmin": false,
+    "isDonator": false,
+    "isLive": false,
+    "bio": "<!-- the bioring stuff --><a href="https://bioring.pages.dev/webring?page=@squirrel&amp;direction=bak" target="_blank"><img src="https://bitview.lol/?url=https%3A%2F%2Fbioring.pages.dev%2Fpkback.png" alt="Image"></a><a href="https://bioring.pages.dev" target="_blank"><img src="https://bitview.lol/?url=https%3A%2F%2Fbioring.pages.dev%2Fpkringmain.png" alt="Image"></a><a href="https://bioring.pages.dev/webring?page=@squirrel&amp;direction=fwd" target="_blank"><img src="https://bitview.lol/?url=https%3A%2F%2Fbioring.pages.dev%2Fpkringfw.png" alt="Image"></a><strong>hai!!</strong><marquee scrollamount="3">UID 47! || Minor || I code or smth idk || Owner of&nbsp;<a href="https://github.com/freakybob-team" target="_blank">Freakybob Team</a>! || He/Her (idk, it's confusing :p) || I enjoy pizza wow || U are awesome (unless weirdo) !! :D</marquee><!-- last.fm widget!!! --><img src="https://bitview.lol/?url=https%3A%2F%2Flast-fm-ruby.vercel.app%2F%3Fusername%3DSquirre1Z%26bg%3D240046%26cardBg%3D3C096C%26primary%3DFFFFFF%26secondary%3DE0AAFF%26accent%3D9D4EDD%26playing%3D9D4EDD%26recently%3DFF5E5B%26round%3D24%26titleSize%3D22" alt="Image"><strong>^ I made this !!!!!!</strong><div class="br"></div><div class="br"></div><strong>most used langs</strong><img src="https://bitview.lol/?url=https%3A%2F%2Fgithub-readme-stats.vercel.app%2Fapi%2Ftop-langs%2F%3Fusername%3D5quirre1%26theme%3Dradical%26show_icons%3Dtrue%26hide_border%3Dtrue%26layout%3Dcompact" alt="Image"><div class="br"></div><!-- pizza image --><!-- <img src="https://f.feridinha.com/mCJ2N.png" alt="Image"> --><!-- background --><style>body, body.dark {background: #1b263b}</style>",
+    "loginStreak": 17,
+    "achievementsCount": 2,
+    "achievements": [
+        {
+            "name": "#soretro",
+            "description": "Join before 10/10/24",
+            "iconUrl": "https://pikidiary.lol/img/achi/retro.png"
+        },
+        {
+            "name": "Welcome!",
+            "description": "Create a PikiDiary account",
+            "iconUrl": "https://pikidiary.lol/img/achi/welcome.gif"
+        }
+    ],
+    "badgeCount": 1,
+    "badges": [
+        {
+            "name": "Observed",
+            "description": "Completed a Userbase Monitoring survey.",
+            "iconUrl": "https://pikidiary.lol/img/icons/survey.png"
+        }
+    ],
+    "posts": [
+        {
+            "id": "192527",
+            "url": "https://pikidiary.lol/posts/192527",
+            "author": "squirrel",
+            "content": "@runningman this looks very real",
+            "timestamp": "Mon May 19 2025 04:18:22 GMT+0000 (GMT)",
+            "images": [],
+            "likes": 2,
+            "comments": 0,
+            "isPinned": false,
+            "isLocked": false
+        },
+        {
+            "id": "192517",
+            "url": "https://pikidiary.lol/posts/192517",
+            "author": "squirrel",
+            "content": "working on a json viewer that still get's json from a url even if it's blocked on my school laptop cause yea",
+            "timestamp": "Mon May 19 2025 04:12:15 GMT+0000 (GMT)",
+            "images": [
+                {
+                    "type": "emote",
+                    "url": "/uploads/emotes/1732496728535245.gif"
+                },
+                {
+                    "type": "emote",
+                    "url": "/uploads/emotes/1732496728535245.gif"
+                },
+                {
+                    "type": "emote",
+                    "url": "/uploads/emotes/1732496728535245.gif"
+                },
+                {
+                    "type": "image",
+                    "url": "https://bitview.lol/?url=https%3A%2F%2Ffiles.catbox.moe%2Facmkee.png"
+                }
+            ],
+            "likes": 1,
+            "comments": 0,
+            "isPinned": false,
+            "isLocked": false
+        },
+        {
+            "id": "192514",
+            "url": "https://pikidiary.lol/posts/192514",
+            "author": "squirrel",
+            "content": "@jax ts sounds actually fire",
+            "timestamp": "Mon May 19 2025 04:11:23 GMT+0000 (GMT)",
+            "images": [],
+            "likes": 1,
+            "comments": 0,
+            "isPinned": false,
+            "isLocked": false
+        },
+        {
+            "id": "192482",
+            "url": "https://pikidiary.lol/posts/192482",
+            "author": "squirrel",
+            "content": "@lukas WAIT THIS LOOKS AWESOME",
+            "timestamp": "Mon May 19 2025 02:56:16 GMT+0000 (GMT)",
+            "images": [],
+            "likes": 2,
+            "comments": 0,
+            "isPinned": false,
+            "isLocked": false
+        }
+    ]
+}
