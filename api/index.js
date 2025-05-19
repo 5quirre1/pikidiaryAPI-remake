@@ -452,9 +452,15 @@ module.exports = (req, res) => {
                 const timestamp = post.find('span[title]').attr('title');
 
                 const imageElements = post.find('.post-content img');
-                const images = imageElements.map((i, img) => {
-                    return $(img).attr('src');
-                }).get();
+                const images = [];
+                imageElements.each((i, img) => {
+                    const imgSrc = $(img).attr('src');
+                    if (imgSrc.startsWith('/uploads/emotes/')) {
+                        images.push({ type: 'emote', url: imgSrc }); // emote (pikidiary emojis)
+                    } else {
+                        images.push({ type: 'image', url: imgSrc }); // just images
+                    }
+                });
 
                 const likesCountElement = post.find('.like-count');
                 const likesCount = likesCountElement.length > 0 ? parseInt(likesCountElement.text(), 10) : 0;
@@ -646,7 +652,7 @@ module.exports = (req, res) => {
                 extractUserId(response.data)
                     .then(userId => {
                         if (username === 'pikiapi') {
-                            userId = "currently not possible";
+                            userId = 4151;
                         }
                         processUserPage(response.data, userId);
                     })
