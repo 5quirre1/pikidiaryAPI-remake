@@ -179,7 +179,7 @@ module.exports = (req, res) => {
             let userId = await extractUserId(userPageResponse.data);
 
             if (username === 'pikiapi') {
-                userId = 4151";
+                userId = 4151;
             }
 
             processUserPage(userPageResponse.data, userId);
