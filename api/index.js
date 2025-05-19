@@ -1,7 +1,7 @@
 /*
  *  ================================================
  *  -------------PIKIDIARY API REMAKE---------------
- *           CODE BY SQUIRREL GAY ACORNS!!
+ *          CODE BY SQUIRREL GREG ACORNS!!
  *  =================================================
  *        Give credit if you steal my code sob
  *  =================================================
