@@ -438,7 +438,7 @@ module.exports = (req, res) => {
                     console.error("Error fetching live data:", error);
                 }
 
-                // too bad skid you cant get ts
+                // too bad skid you cant get ts too bad
                 authenticatedHeaders = null;
             }
 
