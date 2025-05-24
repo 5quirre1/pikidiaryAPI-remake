@@ -552,7 +552,7 @@ module.exports = (req, res) => {
                             responseObject.badges = badgesList;
                             break;
                         case 'posts':
-                            responseObject.posts = posts.slice(0, 4);
+                            responseObject.posts = posts.slice(0, 6);
                             break;
                         case 'isAdmin':
                             responseObject.isAdmin = isAdmin;
@@ -596,7 +596,7 @@ module.exports = (req, res) => {
                         achievements: achievementsList,
                         badgeCount: badgeCount,
                         badges: badgesList,
-                        posts: posts.slice(0, 4),
+                        posts: posts.slice(0, 6),
                     };
                 } else {
                     responseObject = {
