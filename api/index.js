@@ -435,7 +435,7 @@ module.exports = (req, res) => {
                     });
                 }
                 catch (error) {
-                    console.error("Error fetching live data:", error);
+                    console.error("error fetching live data:", error);
                 }
 
                 // too bad skid you cant get ts too bad
@@ -452,14 +452,26 @@ module.exports = (req, res) => {
                 const createdAt = post.find('span[style*="line-height: 11px; margin-top: -1px;"]').text().trim();
                 const timestamp = post.find('span[title]').attr('title');
 
+
+                const media = [];
+
+                // image
                 const imageElements = post.find('.post-content img');
-                const images = [];
                 imageElements.each((i, img) => {
                     const imgSrc = $(img).attr('src');
                     if (imgSrc.startsWith('/uploads/emotes/')) {
-                        images.push({ type: 'emote', url: imgSrc }); // emote (pikidiary emojis)
+                        media.push({ type: 'emote', url: imgSrc }); // emote (pikidiary emojis)
                     } else {
-                        images.push({ type: 'image', url: imgSrc }); // just images
+                        media.push({ type: 'image', url: imgSrc }); // images
+                    }
+                });
+
+                // video
+                const videoElements = post.find('.post-content video source, .post-content video');
+                videoElements.each((i, element) => {
+                    const videoSrc = $(element).attr('src');
+                    if (videoSrc) {
+                        media.push({ type: 'video', url: videoSrc }); // videos
                     }
                 });
 
@@ -474,21 +486,48 @@ module.exports = (req, res) => {
                 const isPinned = post.find('img[alt="Pinned"]').length > 0;
                 const isLocked = post.find('img[alt="Locked"]').length > 0;
                 const isReply = post.find('img[src="/img/icons/parent.png"]').length > 0;
-
-                posts.push({
-                    id: postId,
-                    url: postUrl,
-                    author: authorName,
-                    content: postContent,
-                    createdAt: createdAt,
-                    timestamp: timestamp,
-                    images: images,
-                    likes: likesCount,
-                    comments: commentsCount,
-                    isPinned: isPinned,
-                    isLocked: isLocked,
-                    isReply: isReply
-                });
+                let parentId = null;
+                if (isReply) {
+                    const parentLink = post.find('a.post-button img[src="/img/icons/parent.png"]').parent();
+                    if (parentLink.length > 0) {
+                        const href = parentLink.attr('href');
+                        if (href) {
+                            parentId = href.split('/posts/')[1].split('#')[0];
+                        }
+                    }
+                }
+                if (isReply) {
+                    posts.push({
+                        id: postId,
+                        url: postUrl,
+                        author: authorName,
+                        content: postContent,
+                        createdAt: createdAt,
+                        timestamp: timestamp,
+                        media: media,
+                        likes: likesCount,
+                        isPinned: isPinned,
+                        isLocked: isLocked,
+                        isReply: isReply,
+                        parentId: parentId
+                    });
+                }
+                else {
+                    posts.push({
+                        id: postId,
+                        url: postUrl,
+                        author: authorName,
+                        content: postContent,
+                        createdAt: createdAt,
+                        timestamp: timestamp,
+                        media: media,
+                        likes: likesCount,
+                        comments: commentsCount,
+                        isPinned: isPinned,
+                        isLocked: isLocked,
+                        isReply: isReply
+                    });
+                }
             });
 
             posts.sort((a, b) => {
