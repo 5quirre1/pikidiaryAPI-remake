@@ -621,7 +621,7 @@ module.exports = (req, res) => {
                         achievements: achievementsList,
                         badgeCount: badgeCount,
                         badges: badgesList,
-                        posts: posts.slice(0, 4),
+                        posts: posts.slice(0, 6),
                     };
                 }
             }
