@@ -448,7 +448,7 @@ module.exports = (req, res) => {
                 const postId = post.attr('id');
                 const postUrl = postId ? `${baseUrl}/posts/${postId}` : null;
                 const authorName = post.find('.post-name').text().trim();
-                const postContent = post.find('.post-content > span').text().trim();
+                const postContent = post.find('.post-content > span').text();
                 const timestamp = post.find('span[title]').attr('title');
 
                 const imageElements = post.find('.post-content img');
