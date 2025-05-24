@@ -449,6 +449,7 @@ module.exports = (req, res) => {
                 const postUrl = postId ? `${baseUrl}/posts/${postId}` : null;
                 const authorName = post.find('.post-name').text().trim();
                 const postContent = post.find('.post-content > span').text().trim();
+                const createdAt = post.find('span[style*="line-height: 11px; margin-top: -1px;"]').text().trim();
                 const timestamp = post.find('span[title]').attr('title');
 
                 const imageElements = post.find('.post-content img');
@@ -478,6 +479,7 @@ module.exports = (req, res) => {
                     url: postUrl,
                     author: authorName,
                     content: postContent,
+                    createdAt: createdAt,
                     timestamp: timestamp,
                     images: images,
                     likes: likesCount,
