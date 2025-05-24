@@ -473,6 +473,7 @@ module.exports = (req, res) => {
 
                 const isPinned = post.find('img[alt="Pinned"]').length > 0;
                 const isLocked = post.find('img[alt="Locked"]').length > 0;
+                const isReply = post.find('img[src="/img/icons/parent.png"]').length > 0;
 
                 posts.push({
                     id: postId,
@@ -485,7 +486,8 @@ module.exports = (req, res) => {
                     likes: likesCount,
                     comments: commentsCount,
                     isPinned: isPinned,
-                    isLocked: isLocked
+                    isLocked: isLocked,
+                    isReply: isReply
                 });
             });
 
