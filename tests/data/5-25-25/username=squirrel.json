@@ -1,0 +1,134 @@
+{
+  "userId": 47,
+  "userUrl": "https://pikidiary.lol/@squirrel",
+  "username": "squirrel",
+  "followers": 92,
+  "following": 223,
+  "pfp": "https://pikidiary.lol/uploads/avatars/resized-1747872456868.jpg",
+  "banner": "https://pikidiary.lol/uploads/banners/resized-1741846780165.jpg",
+  "background": "#1b263b",
+  "isVerified": false,
+  "isInactive": false,
+  "isAdmin": false,
+  "isDonator": false,
+  "isLive": false,
+  "bio": "\u003C!-- the bioring stuff --\u003E\u003Ca href=\"https://bioring.pages.dev/webring?page=@squirrel&amp;direction=bak\" target=\"_blank\"\u003E\u003Cimg src=\"https://bitview.lol/?url=https%3A%2F%2Fbioring.pages.dev%2Fpkback.png\" alt=\"Image\"\u003E\u003C/a\u003E\u003Ca href=\"https://bioring.pages.dev\" target=\"_blank\"\u003E\u003Cimg src=\"https://bitview.lol/?url=https%3A%2F%2Fbioring.pages.dev%2Fpkringmain.png\" alt=\"Image\"\u003E\u003C/a\u003E\u003Ca href=\"https://bioring.pages.dev/webring?page=@squirrel&amp;direction=fwd\" target=\"_blank\"\u003E\u003Cimg src=\"https://bitview.lol/?url=https%3A%2F%2Fbioring.pages.dev%2Fpkringfw.png\" alt=\"Image\"\u003E\u003C/a\u003E\u003Cstrong\u003Ehai!!\u003C/strong\u003E\u003Cmarquee scrollamount=\"3\"\u003EUID 47! || Minor || I code or smth idk || Owner of&nbsp;\u003Ca href=\"https://github.com/freakybob-team\" target=\"_blank\"\u003EFreakybob Team\u003C/a\u003E! || He/Her (idk, it's confusing :p) || I enjoy pizza wow || U are awesome (unless weirdo) !! :D\u003C/marquee\u003E\u003C!-- last.fm widget!!! --\u003E\u003Cimg src=\"https://bitview.lol/?url=https%3A%2F%2Flast-fm-ruby.vercel.app%2F%3Fusername%3DSquirre1Z%26bg%3D240046%26cardBg%3D3C096C%26primary%3DFFFFFF%26secondary%3DE0AAFF%26accent%3D9D4EDD%26playing%3D9D4EDD%26recently%3DFF5E5B%26round%3D24%26titleSize%3D22\" alt=\"Image\"\u003E\u003Cstrong\u003E^ I made this !!!!!!\u003C/strong\u003E\u003Cdiv class=\"br\"\u003E\u003C/div\u003E\u003Cdiv class=\"br\"\u003E\u003C/div\u003E\u003Cstrong\u003Emost used langs\u003C/strong\u003E\u003Cimg src=\"https://bitview.lol/?url=https%3A%2F%2Fgithub-readme-stats.vercel.app%2Fapi%2Ftop-langs%2F%3Fusername%3D5quirre1%26theme%3Dradical%26show_icons%3Dtrue%26hide_border%3Dtrue%26layout%3Dcompact\" alt=\"Image\"\u003E\u003Cdiv class=\"br\"\u003E\u003C/div\u003E\u003C!-- pizza image --\u003E\u003C!-- \u003Cimg src=\"https://f.feridinha.com/mCJ2N.png\" alt=\"Image\"\u003E --\u003E\u003C!-- background --\u003E\u003Cstyle\u003Ebody, body.dark {background: #1b263b}\u003C/style\u003E",
+  "loginStreak": 22,
+  "achievementsCount": 2,
+  "achievements": [
+    {
+      "name": "#soretro",
+      "description": "Join before 10/10/24",
+      "iconUrl": "https://pikidiary.lol/img/achi/retro.png"
+    },
+    {
+      "name": "Welcome!",
+      "description": "Create a PikiDiary account",
+      "iconUrl": "https://pikidiary.lol/img/achi/welcome.gif"
+    }
+  ],
+  "badgeCount": 1,
+  "badges": [
+    {
+      "name": "Observed",
+      "description": "Completed a Userbase Monitoring survey.",
+      "iconUrl": "https://pikidiary.lol/img/icons/survey.png"
+    }
+  ],
+  "posts": [
+    {
+      "id": "195600",
+      "url": "https://pikidiary.lol/posts/195600",
+      "author": "squirrel",
+      "content": "@burhfart wow",
+      "createdAt": "20 hours ago",
+      "timestamp": "Sat May 24 2025 23:01:17 GMT+0000 (GMT)",
+      "media": [],
+      "likes": 1,
+      "isPinned": false,
+      "isLocked": false,
+      "isReply": true,
+      "parentId": "195595"
+    },
+    {
+      "id": "195594",
+      "url": "https://pikidiary.lol/posts/195594",
+      "author": "squirrel",
+      "content": "@forgeworks what",
+      "createdAt": "20 hours ago",
+      "timestamp": "Sat May 24 2025 22:51:02 GMT+0000 (GMT)",
+      "media": [],
+      "likes": 1,
+      "isPinned": false,
+      "isLocked": false,
+      "isReply": true,
+      "parentId": "195592"
+    },
+    {
+      "id": "195558",
+      "url": "https://pikidiary.lol/posts/195558",
+      "author": "squirrel",
+      "content": "",
+      "createdAt": "22 hours ago",
+      "timestamp": "Sat May 24 2025 21:20:20 GMT+0000 (GMT)",
+      "media": [
+        {
+          "type": "emote",
+          "url": "/uploads/emotes/1731322968874353.gif"
+        }
+      ],
+      "likes": 0,
+      "comments": 0,
+      "isPinned": false,
+      "isLocked": false,
+      "isReply": false
+    },
+    {
+      "id": "195549",
+      "url": "https://pikidiary.lol/posts/195549",
+      "author": "squirrel",
+      "content": "@hacks.guide LOL WHAT THE FUCK",
+      "createdAt": "22 hours ago",
+      "timestamp": "Sat May 24 2025 21:14:33 GMT+0000 (GMT)",
+      "media": [],
+      "likes": 2,
+      "isPinned": false,
+      "isLocked": false,
+      "isReply": true,
+      "parentId": "195546"
+    },
+    {
+      "id": "195547",
+      "url": "https://pikidiary.lol/posts/195547",
+      "author": "squirrel",
+      "content": "",
+      "createdAt": "22 hours ago",
+      "timestamp": "Sat May 24 2025 21:13:24 GMT+0000 (GMT)",
+      "media": [
+        {
+          "type": "video",
+          "url": "https://bitview.lol/?url=https%3A%2F%2Ffiles.catbox.moe%2F6lj5p7.mp4"
+        }
+      ],
+      "likes": 2,
+      "comments": 0,
+      "isPinned": false,
+      "isLocked": false,
+      "isReply": false
+    },
+    {
+      "id": "195520",
+      "url": "https://pikidiary.lol/posts/195520",
+      "author": "squirrel",
+      "content": "@squirrel pizza and crabby patties",
+      "createdAt": "22 hours ago",
+      "timestamp": "Sat May 24 2025 20:29:37 GMT+0000 (GMT)",
+      "media": [],
+      "likes": 0,
+      "isPinned": false,
+      "isLocked": false,
+      "isReply": true,
+      "parentId": "195516"
+    }
+  ]
+}
