@@ -40,15 +40,14 @@ const querystring = require('querystring');
 const cache = new Map();
 const CACHE_TTL = 7 * 60 * 1000; // 7 minutes cache to not destroy pikidiary server
 
-const generateCacheKey = (username, showFields, specificPostId) => {
-    return `${username}:${showFields.join(',')}:${specificPostId || ''}`;
+const generateCacheKey = (username, showFields) => {
+    return `${username}:${showFields.join(',')}`;
 };
 
 module.exports = (req, res) => {
     const { query } = req;
     const username = query.username;
     const showFields = query.show ? query.show.split(',').map(field => field.trim()) : [];
-    const specificPostId = query.post_id;
 
     res.setHeader('Access-Control-Allow-Origin', '*');
 
@@ -65,7 +64,7 @@ module.exports = (req, res) => {
     }
 
     // cache
-    const cacheKey = generateCacheKey(username, showFields, specificPostId);
+    const cacheKey = generateCacheKey(username, showFields);
     const cachedResponse = cache.get(cacheKey);
 
     if (cachedResponse) {
@@ -542,15 +541,7 @@ module.exports = (req, res) => {
                 isInactive = true;
             }
 
-            if (specificPostId) {
-                const foundPost = posts.find(post => post.id === specificPostId);
-                if (foundPost) {
-                    responseObject = foundPost;
-                } else {
-                    res.status(404).json({ error: `post with ID '${specificPostId}' not found for user '${username}'` });
-                    return;
-                }
-            } else if (showFields.length > 0) {
+            if (showFields.length > 0) {
                 showFields.forEach(field => {
                     switch (field) {
                         case 'username':
