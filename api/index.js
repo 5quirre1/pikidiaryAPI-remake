@@ -508,7 +508,10 @@ module.exports = (req, res) => {
                         isPinned: isPinned,
                         isLocked: isLocked,
                         isReply: isReply,
-                        parentId: parentId
+                        replyInfo: {
+                            parentId: parentId,
+                            url: `${baseUrl}/posts/${parentId}`
+                        }
                     });
                 }
                 else {
