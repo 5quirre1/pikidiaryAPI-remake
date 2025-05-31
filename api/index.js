@@ -308,22 +308,24 @@ module.exports = (req, res) => {
             if (bioDiv.length > 0) {
                 const styleTag = bioDiv.find('style');
                 if (styleTag.length > 0) {
-                    const styleContent = styleTag.html();
-                    const backgroundMatch = styleContent.match(/background:\s*([^}]*)/);
-                    if (backgroundMatch && backgroundMatch[1]) {
-                        userBackground = backgroundMatch[1].trim();
+                    for (let i = 0; i < styleTag.length; i++) {
+                        const styleContent = styleTag.eq(i).html();
+                        const backgroundMatch = styleContent.match(/background:\s*([^}]*)/);
+                        if (backgroundMatch && backgroundMatch[1]) {
+                            userBackground = backgroundMatch[1].trim();
 
-                        if (userBackground.includes('#')) {
-                            // color
-                            const colorMatch = userBackground.match(/#[a-fA-F0-9]+/);
-                            if (colorMatch) {
-                                userBackground = colorMatch[0];
-                            }
-                        } else if (userBackground.includes('url(')) {
-                            // background url
-                            const urlMatch = userBackground.match(/url\(['"]?(.*?)['"]?\)/);
-                            if (urlMatch && urlMatch[1]) {
-                                userBackground = urlMatch[1];
+                            if (userBackground.includes('#')) {
+                                // color
+                                const colorMatch = userBackground.match(/#[a-fA-F0-9]+/);
+                                if (colorMatch) {
+                                    userBackground = colorMatch[0];
+                                }
+                            } else if (userBackground.includes('url(')) {
+                                // background url
+                                const urlMatch = userBackground.match(/url\(['"]?(.*?)['"]?\)/);
+                                if (urlMatch && urlMatch[1]) {
+                                    userBackground = urlMatch[1];
+                                }
                             }
                         }
                     }
