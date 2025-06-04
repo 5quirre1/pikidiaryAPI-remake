@@ -45,7 +45,7 @@ module.exports = (req, res) => {
     function swag() {
         return Array.from({ length: 6 }, (_, i) => ({
             "id": 70 + i,
-            "url": null,
+            "url": "https://swag.com",
             "author": "5quirre1",
             "content": "g",
             "createdAt": "idfk",
@@ -107,7 +107,7 @@ module.exports = (req, res) => {
                     responseObject.posts = [
                         {
                             "id": 69,
-                            "url": null,
+                            "url": "https://swag.com",
                             "author": "5quirre1",
                             "content": "pikiapi is down rn",
                             "createdAt": "idfk",
@@ -146,29 +146,29 @@ module.exports = (req, res) => {
         });
     } else {
         responseObject = {
-            userId: null,
+            userId: 69,
             userUrl: "https://wow.com",
-            username: null,
-            followers: null,
-            following: null,
+            username: "5quirre1",
+            followers: 69,
+            following: 69,
             pfp: "https://images2.minutemediacdn.com/image/upload/c_fill,w_1200,ar_1:1,f_auto,q_auto,g_auto/shape/cover/sport/clown-4-104309a9de96b5c3b380947359b31f69.jpg",
             banner: "https://images2.minutemediacdn.com/image/upload/c_fill,w_1200,ar_1:1,f_auto,q_auto,g_auto/shape/cover/sport/clown-4-104309a9de96b5c3b380947359b31f69.jpg",
             background: "https://images2.minutemediacdn.com/image/upload/c_fill,w_1200,ar_1:1,f_auto,q_auto,g_auto/shape/cover/sport/clown-4-104309a9de96b5c3b380947359b31f69.jpg",
-            isVerified: null,
-            isInactive: null,
-            isAdmin: null,
-            isDonator: null,
-            isLive: null,
-            bio: null,
-            loginStreak: null,
-            achievementsCount: null,
+            isVerified: true,
+            isInactive: true,
+            isAdmin: true,
+            isDonator: true,
+            isLive: true,
+            bio: "yea",
+            loginStreak: 35039,
+            achievementsCount: 34,
             achievements: null,
-            badgeCount: null,
+            badgeCount: 0,
             badges: null,
             posts: [
                 {
                     "id": 69,
-                    "url": null,
+                    "url": "https://swag.com",
                     "author": "5quirre1",
                     "content": "pikiapi is down rn",
                     "createdAt": "idfk",
