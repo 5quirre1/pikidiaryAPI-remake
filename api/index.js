@@ -42,6 +42,22 @@ module.exports = (req, res) => {
 
     const baseUrl = 'https://pikidiary.lol';
 
+    function swag() {
+        return Array.from({ length: 6 }, (_, i) => ({
+            "id": 70 + i,
+            "url": null,
+            "author": "5quirre1",
+            "content": "g",
+            "createdAt": "idfk",
+            "timestamp": new Date().toISOString(),
+            "media": [],
+            "likes": 0,
+            "comments": 0,
+            "isPinned": false,
+            "isLocked": false,
+            "isReply": false
+        }));
+    }
 
     let responseObject = {};
 
@@ -102,7 +118,8 @@ module.exports = (req, res) => {
                             "isPinned": false,
                             "isLocked": false,
                             "isReply": false
-                        }
+                        },
+                        ...swag()
                     ];
                     break;
                 case 'isAdmin':
@@ -162,11 +179,13 @@ module.exports = (req, res) => {
                     "isPinned": false,
                     "isLocked": false,
                     "isReply": false
-                }
-            ]
-        };
-    }
+                },
+    
+    ...swag()
+]
+    };
+}
 
-    res.setHeader('X-Cache', 'OFFLINE');
-    res.status(200).json(responseObject);
+res.setHeader('X-Cache', 'OFFLINE');
+res.status(200).json(responseObject);
 };
