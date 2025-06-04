@@ -119,7 +119,7 @@ module.exports = (req, res) => {
                     responseObject.badgeCount = 0;
                     break;
                 case 'badges':
-                    responseObject.badges = null;
+                    responseObject.badges = [];
                     break;
                 case 'posts':
                     responseObject.posts = [
@@ -164,7 +164,7 @@ module.exports = (req, res) => {
             achievementsCount: 34,
             achievements: null,
             badgeCount: 0,
-            badges: null,
+            badges: [],
             posts: [
                 {
                     "id": 69,
