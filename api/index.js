@@ -64,41 +64,59 @@ module.exports = (req, res) => {
     if (showFields.length > 0) {
         showFields.forEach(field => {
             switch (field) {
+                case 'userId':
+                    responseObject.userId = 69;
+                    break;
+                case 'userUrl':
+                    responseObject.userUrl = "https://wow.com";
+                    break;
                 case 'username':
-                    responseObject.username = null;
+                    responseObject.username = "5quirre1";
                     break;
                 case 'followers':
-                    responseObject.followers = null;
+                    responseObject.followers = 69;
                     break;
                 case 'following':
-                    responseObject.following = null;
+                    responseObject.following = 69;
                     break;
                 case 'pfp':
                     responseObject.pfp = "https://images2.minutemediacdn.com/image/upload/c_fill,w_1200,ar_1:1,f_auto,q_auto,g_auto/shape/cover/sport/clown-4-104309a9de96b5c3b380947359b31f69.jpg";
                     break;
                 case 'banner':
-                    responseObject.banner = null;
+                    responseObject.banner = "https://images2.minutemediacdn.com/image/upload/c_fill,w_1200,ar_1:1,f_auto,q_auto,g_auto/shape/cover/sport/clown-4-104309a9de96b5c3b380947359b31f69.jpg";
                     break;
                 case 'background':
-                    responseObject.background = null;
+                    responseObject.background = "https://images2.minutemediacdn.com/image/upload/c_fill,w_1200,ar_1:1,f_auto,q_auto,g_auto/shape/cover/sport/clown-4-104309a9de96b5c3b380947359b31f69.jpg";
                     break;
                 case 'isVerified':
-                    responseObject.isVerified = null;
+                    responseObject.isVerified = true;
+                    break;
+                case 'isInactive':
+                    responseObject.isInactive = true;
+                    break;
+                case 'isAdmin':
+                    responseObject.isAdmin = true;
+                    break;
+                case 'isDonator':
+                    responseObject.isDonator = true;
+                    break;
+                case 'isLive':
+                    responseObject.isLive = true;
                     break;
                 case 'bio':
-                    responseObject.bio = null;
+                    responseObject.bio = "yea";
                     break;
                 case 'loginStreak':
-                    responseObject.loginStreak = null;
+                    responseObject.loginStreak = 35039;
                     break;
                 case 'achievementsCount':
-                    responseObject.achievementsCount = null;
+                    responseObject.achievementsCount = 34;
                     break;
                 case 'achievements':
                     responseObject.achievements = null;
                     break;
                 case 'badgeCount':
-                    responseObject.badgeCount = null;
+                    responseObject.badgeCount = 0;
                     break;
                 case 'badges':
                     responseObject.badges = null;
@@ -121,24 +139,6 @@ module.exports = (req, res) => {
                         },
                         ...swag()
                     ];
-                    break;
-                case 'isAdmin':
-                    responseObject.isAdmin = null;
-                    break;
-                case 'isDonator':
-                    responseObject.isDonator = null;
-                    break;
-                case 'isInactive':
-                    responseObject.isInactive = null;
-                    break;
-                case 'userId':
-                    responseObject.userId = null;
-                    break;
-                case 'isLive':
-                    responseObject.isLive = null;
-                    break;
-                case 'liveInfo':
-                    responseObject.liveInfo = null;
                     break;
                 default:
                     break;
@@ -180,12 +180,12 @@ module.exports = (req, res) => {
                     "isLocked": false,
                     "isReply": false
                 },
-    
-    ...swag()
-]
-    };
-}
 
-res.setHeader('X-Cache', 'OFFLINE');
-res.status(200).json(responseObject);
+                ...swag()
+            ]
+        };
+    }
+
+    res.setHeader('X-Cache', 'OFFLINE');
+    res.status(200).json(responseObject);
 };
