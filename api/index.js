@@ -47,14 +47,68 @@ module.exports = (req, res) => {
     const { query } = req;
     const username = query.username;
     const showFields = query.show ? query.show.split(',').map(field => field.trim()) : [];
+    const help = query.help !== undefined;
 
     res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // a help command so non nerd people can know what to do
+    if (help) {
+        const helpResponse = {
+            status: 200,
+            message: "pikiapi",
+            version: "1.2.1",
+            author: "@squirrel & @hacks.guide & @mpax235",
+            usage: {
+                endpoint: "/?username=username&show=field",
+                parameters: {
+                    username: {
+                        type: "string",
+                        required: true,
+                        description: "the username to fetch info for"
+                    },
+                    show: {
+                        type: "string",
+                        required: false,
+                        description: "to show spicific fields of info, if not specified, returns all available fields"
+                    },
+                    help: {
+                        type: "boolean",
+                        required: false,
+                        description: "this help message"
+                    }
+                },
+                availableFields: [
+                    "username", "followers", "following", "pfp", "banner", "background",
+                    "isVerified", "isAdmin", "isDonator", "isInactive", "bio", "loginStreak",
+                    "achievementsCount", "achievements", "badgeCount", "badges", "posts", "pinned",
+                    "userId", "isLive", "liveInfo"
+                ],
+                examples: [
+                    "/?username=exampleuser",
+                    "/?username=exampleuser&show=username,followers,pfp",
+                    "/?help"
+                ],
+                cache: {
+                    ttl: "7 minutes",
+                    description: "responses are cached for 7 minutes to make sure piki's server aren't being affected"
+                },
+                rateLimit: "please be respectful with requests to avoid overloading the piki's servers",
+                disclaimer: "this is not an offical api. pikidiary.lol is owned by jax, this was made for fun and to recreate an old feature"
+            }
+        };
+        res.status(200).json(helpResponse);
+        return;
+    }
 
     const baseUrl = 'https://pikidiary.lol';
     let url = `${baseUrl}/@${username}`;
 
     if (!username) {
-        res.status(400).json({ error: 'username is required' });
+        res.status(400).json({
+            status: 400,
+            error: 'username is required',
+            message: 'put a username to fetch some info, use ?help to show help and docs and stuff'
+        });
         return;
     }
 
@@ -68,7 +122,10 @@ module.exports = (req, res) => {
         const now = Date.now();
 
         if (now - timestamp < CACHE_TTL) {
-            res.status(200).json(data);
+            res.status(200).json({
+                status: 200,
+                ...data
+            });
             return;
         } else {
             // remove cache entry
@@ -133,7 +190,10 @@ module.exports = (req, res) => {
             const $ = cheerio.load(data);
 
             if (data.includes('User not found')) {
-                res.status(404).json({ error: 'user not found' });
+                res.status(404).json({
+                    status: 404,
+                    error: 'user not found'
+                });
                 return;
             }
 
@@ -141,7 +201,10 @@ module.exports = (req, res) => {
             const extractedUsername = usernameSpan.text().trim();
 
             if (!extractedUsername) {
-                res.status(404).json({ error: 'user not found' });
+                res.status(404).json({
+                    status: 404,
+                    error: 'user not found'
+                });
                 return;
             }
 
@@ -316,6 +379,8 @@ module.exports = (req, res) => {
             });
 
             const posts = [];
+            const pinnedPosts = [];
+
             $('.post').each((index, element) => {
                 const post = $(element);
                 const postId = post.attr('id');
@@ -324,7 +389,6 @@ module.exports = (req, res) => {
                 const postContent = post.find('.post-content > span').text().trim();
                 const createdAt = post.find('span[style*="line-height: 11px; margin-top: -1px;"]').text().trim();
                 const timestamp = post.find('span[title]').attr('title');
-
 
                 const media = [];
 
@@ -351,13 +415,18 @@ module.exports = (req, res) => {
                 const likesCountElement = post.find('.like-count');
                 const likesCount = likesCountElement.length > 0 ? parseInt(likesCountElement.text(), 10) : 0;
 
-                const commentsCountElement = post.find('a[href*="/posts/"]');
-                const commentsCountText = commentsCountElement.text().trim();
-                const commentsMatch = commentsCountText.match(/(\d+)/);
-                const commentsCount = commentsMatch ? parseInt(commentsMatch[0], 10) : 0;
+                // acutally make comment count work KMFAO
+                const commentsCountElement = post.find('a.post-button[href*="/posts/"] img[src="/img/icons/comment.png"]').parent();
+                let commentsCount = 0;
+                if (commentsCountElement.length > 0) {
+                    const commentsText = commentsCountElement.text().trim();
+                    // get count
+                    const commentsMatch = commentsText.match(/(\d+)$/);
+                    commentsCount = commentsMatch ? parseInt(commentsMatch[0], 10) : 0;
+                }
 
                 const isPinned = post.find('img[alt="Pinned"]').length > 0;
-                const isLocked = post.find('img[alt="Locked"]').length > 0;
+                const isLocked = post.find('img[src="/img/icons/locked.png"]').length > 0;
                 const isReply = post.find('img[src="/img/icons/parent.png"]').length > 0;
                 let parentId = null;
                 if (isReply) {
@@ -369,40 +438,35 @@ module.exports = (req, res) => {
                         }
                     }
                 }
+
+                const postData = {
+                    id: postId,
+                    url: postUrl,
+                    author: authorName,
+                    content: postContent,
+                    createdAt: createdAt,
+                    timestamp: timestamp,
+                    media: media,
+                    likes: likesCount,
+                    isLocked: isLocked,
+                    isReply: isReply
+                };
+
                 if (isReply) {
-                    posts.push({
-                        id: postId,
-                        url: postUrl,
-                        author: authorName,
-                        content: postContent,
-                        createdAt: createdAt,
-                        timestamp: timestamp,
-                        media: media,
-                        likes: likesCount,
-                        isPinned: isPinned,
-                        isLocked: isLocked,
-                        isReply: isReply,
-                        replyInfo: {
-                            parentId: parentId,
-                            url: `${baseUrl}/posts/${parentId}`
-                        }
-                    });
+                    postData.replyInfo = {
+                        parentId: parentId,
+                        url: `${baseUrl}/posts/${parentId}`
+                    };
+                } else {
+                    // add comment count to non reply posts
+                    postData.comments = commentsCount;
                 }
-                else {
-                    posts.push({
-                        id: postId,
-                        url: postUrl,
-                        author: authorName,
-                        content: postContent,
-                        createdAt: createdAt,
-                        timestamp: timestamp,
-                        media: media,
-                        likes: likesCount,
-                        comments: commentsCount,
-                        isPinned: isPinned,
-                        isLocked: isLocked,
-                        isReply: isReply
-                    });
+
+                // make it so pinned posts are seperate
+                if (isPinned) {
+                    pinnedPosts.push(postData);
+                } else {
+                    posts.push(postData);
                 }
             });
 
@@ -412,7 +476,15 @@ module.exports = (req, res) => {
                 return dateB - dateA;
             });
 
-            let responseObject = {};
+            pinnedPosts.sort((a, b) => {
+                const dateA = new Date(a.timestamp);
+                const dateB = new Date(b.timestamp);
+                return dateB - dateA;
+            });
+
+            let responseObject = {
+                status: 200
+            };
             let isInactive = false;
             if (avatarImg.hasClass('inactive')) {
                 isInactive = true;
@@ -463,6 +535,9 @@ module.exports = (req, res) => {
                         case 'posts':
                             responseObject.posts = posts.slice(0, 6);
                             break;
+                        case 'pinned':
+                            responseObject.pinned = pinnedPosts;
+                            break;
                         case 'isAdmin':
                             responseObject.isAdmin = isAdmin;
                             break;
@@ -487,6 +562,7 @@ module.exports = (req, res) => {
                 });
             } else {
                 responseObject = {
+                    status: 200,
                     userId: "due to TOS, we can not get this right now.",
                     userUrl: url,
                     username: extractedUsername,
@@ -506,13 +582,17 @@ module.exports = (req, res) => {
                     achievements: achievementsList,
                     badgeCount: badgeCount,
                     badges: badgesList,
-                    posts: posts.slice(0, 6),
+                    pinned: pinnedPosts,
+                    posts: posts.slice(0, 6), // was gonna change this to recent posts but things that are using pikiapi for posts would break so uh some other time
                 };
             }
 
-            // Store the response in cache
+            // Store the response in cache (without status field)
+            const cacheData = { ...responseObject };
+            delete cacheData.status;
+
             cache.set(cacheKey, {
-                data: responseObject,
+                data: cacheData,
                 timestamp: Date.now()
             });
 
@@ -522,14 +602,20 @@ module.exports = (req, res) => {
 
         } catch (error) {
             console.error("error parsing html or extracting data:", error);
-            res.status(500).json({ error: 'failed to extract user data' });
+            res.status(500).json({
+                status: 500,
+                error: 'failed to extract user data'
+            });
         }
     };
 
     fetchData(url, standardHeaders)
         .then(response => {
             if (response.data.includes('User not found')) {
-                res.status(404).json({ error: 'user not found' });
+                res.status(404).json({
+                    status: 404,
+                    error: 'user not found'
+                });
                 return;
             }
 
@@ -537,11 +623,20 @@ module.exports = (req, res) => {
         })
         .catch(error => {
             if (error.statusCode === 404) {
-                res.status(404).json({ error: 'user not found' });
+                res.status(404).json({
+                    status: 404,
+                    error: 'user not found'
+                });
             } else if (error.statusCode) {
-                res.status(error.statusCode).json({ error: `failed to retrieve data. status code: ${error.statusCode}` });
+                res.status(error.statusCode).json({
+                    status: error.statusCode,
+                    error: `failed to retrieve data. status code: ${error.statusCode}`
+                });
             } else {
-                res.status(500).json({ error: error.message });
+                res.status(500).json({
+                    status: 500,
+                    error: error.message
+                });
             }
         });
 };
