@@ -92,7 +92,7 @@ module.exports = (req, res) => {
                     ttl: "7 minutes",
                     description: "responses are cached for 7 minutes to make sure piki's server aren't being affected"
                 },
-                rateLimit: "please be respectful with requests to avoid overloading the piki's servers",
+                rateLimit: "please be respectful with requests to avoid overloading piki's servers",
                 disclaimer: "this is not an offical api. pikidiary.lol is owned by jax, this was made for fun and to recreate an old feature"
             }
         };
