@@ -13,4 +13,4 @@
 
 ### how to get data for a user
 ---
-**The API has a username query that you are able to use for this, e.g: ```https://pikidiary-api.vercel.app/?username=someonetdh```!**
+**The API has a username query that you are able to use for this, e.g: ```https://pikidiary-api.vercel.app/?username=runningman```!**
