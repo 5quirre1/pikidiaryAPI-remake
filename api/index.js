@@ -81,7 +81,7 @@ module.exports = (req, res) => {
                     "username", "followers", "following", "pfp", "banner", "background",
                     "isVerified", "isAdmin", "isDonator", "isInactive", "bio", "loginStreak",
                     "achievementsCount", "achievements", "badgeCount", "badges", "posts", "pinned",
-                    "userId", "isLive", "liveInfo"
+                    "userId", "isLive", "liveInfo", "sectionOrder"
                 ],
                 examples: [
                     "/?username=exampleuser",
@@ -318,6 +318,20 @@ module.exports = (req, res) => {
                     loginStreak = parseInt(streakNumberElement.text().trim(), 10);
                 }
             }
+
+            let sectionOrder = null;
+            const scriptTags = $('script');
+            scriptTags.each((index, script) => {
+                const scriptContent = $(script).html();
+                const sectionOrderMatch = scriptContent.match(/let sectionOrder = (\[.*?\]);/);
+                if (sectionOrderMatch && sectionOrderMatch[1]) {
+                    try {
+                        sectionOrder = JSON.parse(sectionOrderMatch[1]);
+                    } catch (e) {
+                        console.error("failed to parse sectionorder:", e);
+                    }
+                }
+            });
 
             let achievementsCount = 0;
             const achievementsList = [];
@@ -556,6 +570,9 @@ module.exports = (req, res) => {
                         case 'liveInfo':
                             responseObject.liveInfo = "due to TOS, we can not get this right now.";
                             break;
+                        case 'sectionOrder':
+                            responseObject.sectionOrder = sectionOrder;
+                            break;
                         default:
                             break;
                     }
@@ -580,6 +597,7 @@ module.exports = (req, res) => {
                     loginStreak: loginStreak,
                     achievementsCount: achievementsCount,
                     achievements: achievementsList,
+                    sectionOrder: sectionOrder,
                     badgeCount: badgeCount,
                     badges: badgesList,
                     pinned: pinnedPosts,
