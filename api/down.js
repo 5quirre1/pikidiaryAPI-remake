@@ -43,11 +43,11 @@ module.exports = (req, res) => {
     const baseUrl = 'https://pikidiary.lol';
 
     function swag() {
-        return Array.from({ length: 6 }, (_, i) => ({
+        return Array.from({ length: 3 }, (_, i) => ({
             "id": 70 + i,
             "url": "https://swag.com",
             "author": "5quirre1",
-            "content": "g",
+            "content": "welp ok",
             "createdAt": "idfk",
             "timestamp": new Date().toISOString(),
             "media": [],
@@ -127,7 +127,7 @@ module.exports = (req, res) => {
                             "id": 69,
                             "url": "https://swag.com",
                             "author": "5quirre1",
-                            "content": "pikiapi is down rn",
+                            "content": "pikiapi is down rn (BETABAN 3 CAME OUT!!! GO NOW!!!!)",
                             "createdAt": "idfk",
                             "timestamp": new Date().toISOString(),
                             "media": [],
@@ -170,7 +170,7 @@ module.exports = (req, res) => {
                     "id": 69,
                     "url": "https://swag.com",
                     "author": "5quirre1",
-                    "content": "pikiapi is down rn",
+                    "content": "pikiapi is down rn (BETABAN 3 CAME OUT!!! GO NOW!!!!)",
                     "createdAt": "idfk",
                     "timestamp": new Date().toISOString(),
                     "media": [],
