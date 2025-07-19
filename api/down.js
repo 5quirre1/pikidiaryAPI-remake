@@ -47,7 +47,7 @@ module.exports = (req, res) => {
             "id": 70 + i,
             "url": "https://swag.com",
             "author": "5quirre1",
-            "content": "welp ok",
+            "content": "pikiapi is down rn (BETABAN 3 CAME OUT!!! GO NOW!!!!)",
             "createdAt": "idfk",
             "timestamp": new Date().toISOString(),
             "media": [],
