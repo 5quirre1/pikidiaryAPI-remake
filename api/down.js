@@ -46,7 +46,7 @@ module.exports = (req, res) => {
         return Array.from({ length: 3 }, (_, i) => ({
             "id": 70 + i,
             "url": "https://swag.com",
-            "author": "5quirre1",
+            "author": "@squirrel on the diary",
             "content": "pikiapi is down rn (BETABAN 3 CAME OUT!!! GO NOW!!!!)",
             "createdAt": "idfk",
             "timestamp": new Date().toISOString(),
@@ -71,7 +71,7 @@ module.exports = (req, res) => {
                     responseObject.userUrl = "https://wow.com";
                     break;
                 case 'username':
-                    responseObject.username = "5quirre1";
+                    responseObject.username = "@squirrel on the diary";
                     break;
                 case 'followers':
                     responseObject.followers = 69;
@@ -126,7 +126,7 @@ module.exports = (req, res) => {
                         {
                             "id": 69,
                             "url": "https://swag.com",
-                            "author": "5quirre1",
+                            "author": "@squirrel on the diary",
                             "content": "pikiapi is down rn (BETABAN 3 CAME OUT!!! GO NOW!!!!)",
                             "createdAt": "idfk",
                             "timestamp": new Date().toISOString(),
@@ -148,7 +148,7 @@ module.exports = (req, res) => {
         responseObject = {
             userId: 69,
             userUrl: "https://wow.com",
-            username: "5quirre1",
+            username: "@squirrel on the diary",
             followers: 69,
             following: 69,
             pfp: "https://images2.minutemediacdn.com/image/upload/c_fill,w_1200,ar_1:1,f_auto,q_auto,g_auto/shape/cover/sport/clown-4-104309a9de96b5c3b380947359b31f69.jpg",
