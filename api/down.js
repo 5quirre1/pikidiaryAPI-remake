@@ -169,7 +169,7 @@ module.exports = (req, res) => {
                 {
                     "id": 69,
                     "url": "https://swag.com",
-                    "author": "5quirre1",
+                    "author": "@squirrel on the diary",
                     "content": "pikiapi is down rn (BETABAN 3 CAME OUT!!! GO NOW!!!!)",
                     "createdAt": "idfk",
                     "timestamp": new Date().toISOString(),
