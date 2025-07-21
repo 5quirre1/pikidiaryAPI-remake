@@ -79,7 +79,7 @@ module.exports = (req, res) => {
                 },
                 availableFields: [
                     "username", "followers", "following", "pfp", "banner", "background",
-                    "isVerified", "isAdmin", "isDonator", "isInactive", "bio", "loginStreak",
+                    "isVerified", "isAdmin", "isBot", "isClub", "isInactive", "bio", "loginStreak",
                     "achievementsCount", "achievements", "badgeCount", "badges", "posts", "pinned",
                     "userId", "isLive", "liveInfo", "sectionOrder"
                 ],
@@ -144,7 +144,7 @@ module.exports = (req, res) => {
                 const { statusCode, headers: responseHeaders } = response;
 
                 if (statusCode === 404) {
-                    reject({ statusCode: 404, message: 'user not found' });
+                    reject({ statusCode: 404, message: `user not found` });
                     return;
                 }
 
@@ -197,7 +197,7 @@ module.exports = (req, res) => {
                 return;
             }
 
-            const usernameSpan = $('span[style="font-size: 18px; line-height: 12px; font-weight: bold; overflow-wrap: anywhere;"]');
+            const usernameSpan = $('span[style="font-size:18px;line-height:12px;font-weight:700;overflow-wrap:anywhere"]');
             const extractedUsername = usernameSpan.text().trim();
 
             if (!extractedUsername) {
@@ -211,7 +211,12 @@ module.exports = (req, res) => {
             const avatarImg = $('.avatar-cont .avatar');
 
             let followersCount = null;
-            const followersLabel = $('.section-cont .profile-grid-label:contains("Followers")');
+            let followersLabel = 0;
+            if (extractedUsername === "IQ") {
+                followersLabel = $('.info .profile-grid-label:contains("Followers")');
+            } else {
+                followersLabel = $('.section-cont .profile-grid-label:contains("Followers")');
+            }
             if (followersLabel.length > 0) {
                 const followersText = followersLabel.text().trim();
                 const match = followersText.match(/\((\d+)\)/);
@@ -221,6 +226,11 @@ module.exports = (req, res) => {
             }
 
             let followingCount = null;
+
+            if (extractedUsername === "IQ") {
+                followingCount = 0;
+            }
+
             const followingLabel = $('.section-cont .profile-grid-label:contains("Following")');
             if (followingLabel.length > 0) {
                 const followingText = followingLabel.text().trim();
@@ -240,7 +250,7 @@ module.exports = (req, res) => {
 
             let bannerUrl = null;
             const profMain = $('.prof-main');
-            const bannerImg = profMain.find('img[style*="object-fit: cover; width: 100%; height: 75px; box-sizing: border-box; padding: 2px; background-color: Var(--prof-section-background); border: var(--prof-border) 1px solid;"]');
+            const bannerImg = profMain.find('img[style*="object-fit:cover;width:100%;height:75px;box-sizing:border-box;padding:2px;background-color:Var(--prof-section-background);border:var(--prof-border) 1px solid"]');
             if (bannerImg.length > 0) {
                 const relativeBannerPath = bannerImg.attr('src');
                 if (relativeBannerPath) {
@@ -266,10 +276,16 @@ module.exports = (req, res) => {
                 isAdmin = true;
             }
 
-            let isDonator = false;
-            const donatorImage = usernameSpan.find('img[src="/img/icons/donator.png"]');
-            if (donatorImage.length > 0) {
-                isDonator = true;
+            let isClub = false;
+            const clubImage = usernameSpan.find('img[src="/img/icons/club.png"]');
+            if (clubImage.length > 0) {
+                isClub = true;
+            }
+
+            let isBot = false;
+            const botImage = usernameSpan.find('img[src="/img/icons/robot.png"]');
+            if (botImage.length > 0) {
+                isBot = true;
             }
 
             /* ============================================= */
@@ -311,9 +327,9 @@ module.exports = (req, res) => {
             }
 
             let loginStreak = null;
-            const streakContainer = $('div[style*="background: #FFF4E5;"][style*="border: solid 1px #FFA726;"]');
+            const streakContainer = $('div[style*="background:#fff4e5;"][style*="border:solid 1px #ffa726;"]');
             if (streakContainer.length > 0) {
-                const streakNumberElement = streakContainer.find('b[style="font-size: 19px;"]');
+                const streakNumberElement = streakContainer.find('b[style="font-size:19px"]');
                 if (streakNumberElement.length > 0) {
                     loginStreak = parseInt(streakNumberElement.text().trim(), 10);
                 }
@@ -323,7 +339,7 @@ module.exports = (req, res) => {
             const scriptTags = $('script');
             scriptTags.each((index, script) => {
                 const scriptContent = $(script).html();
-                const sectionOrderMatch = scriptContent.match(/let sectionOrder = (\[.*?\]);/);
+                const sectionOrderMatch = scriptContent.match(/let sectionOrder=(\[.*?\]);/);
                 if (sectionOrderMatch && sectionOrderMatch[1]) {
                     try {
                         sectionOrder = JSON.parse(sectionOrderMatch[1]);
@@ -336,13 +352,13 @@ module.exports = (req, res) => {
             let achievementsCount = 0;
             const achievementsList = [];
 
-            $('img[style*="width: 44px; height: 44px;"]').each((index, imgElement) => {
+            $('img[style*="width:44px;height:44px;box-sizing:border-box;border:solid 1px #ccc;padding:2px"]').each((index, imgElement) => {
                 const achievementImg = $(imgElement);
-                const achievementDiv = achievementImg.parent('div[style*="display: flex; gap: 8px;"]');
+                const achievementDiv = achievementImg.parent('div[style*="display:flex;gap:8px"]');
 
                 if (achievementDiv.length > 0) {
-                    const nameElement = achievementDiv.find('b[style="font-size: 19px;"]');
-                    const descriptionElement = achievementDiv.find('span[style="font-size: 11px;"]');
+                    const nameElement = achievementDiv.find('b[style="font-size:19px"]');
+                    const descriptionElement = achievementDiv.find('span[style="font-size:11px"]');
 
                     if (nameElement.length > 0 && descriptionElement.length > 0) {
                         const iconUrl = achievementImg.attr('src') ? `${baseUrl}${achievementImg.attr('src')}` : null;
@@ -400,8 +416,12 @@ module.exports = (req, res) => {
                 const postId = post.attr('id');
                 const postUrl = postId ? `${baseUrl}/posts/${postId}` : null;
                 const authorName = post.find('.post-name').text().trim();
-                const postContent = post.find('.post-content > span').text().trim();
-                const createdAt = post.find('span[style*="line-height: 11px; margin-top: -1px;"]').text().trim();
+                const rawPostContent = post.find('.post-content > span').html();
+                const postContent = rawPostContent
+                    .replace(/<br\s*\/?>/gi, '\n')
+                    .replace(/\/uploads\/emotes/gi, 'https://allowcors.nomaakip.workers.dev/?url=https://pikidiary.lol/uploads/emotes')
+                    .trim();
+                const createdAt = post.find('span[style*="line-height:11px;margin-top:-1px"]').text().trim();
                 const timestamp = post.find('span[title]').attr('title');
 
                 const media = [];
@@ -555,8 +575,11 @@ module.exports = (req, res) => {
                         case 'isAdmin':
                             responseObject.isAdmin = isAdmin;
                             break;
-                        case 'isDonator':
-                            responseObject.isDonator = isDonator;
+                        case 'isBot':
+                            responseObject.isBot = isBot;
+                            break;
+                        case 'isClub':
+                            responseObject.isClub = isClub;
                             break;
                         case 'isInactive':
                             responseObject.isInactive = isInactive;
@@ -591,7 +614,8 @@ module.exports = (req, res) => {
                     isVerified: isVerified,
                     isInactive: isInactive,
                     isAdmin: isAdmin,
-                    isDonator: isDonator,
+                    isBot: isBot,
+                    isClub: isClub,
                     isLive: "due to TOS, we can not get this right now.",
                     bio: userBio,
                     loginStreak: loginStreak,
