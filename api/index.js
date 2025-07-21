@@ -35,6 +35,7 @@
 
 const https = require('https');
 const cheerio = require('cheerio');
+const { encode } = require('punycode');
 
 const cache = new Map();
 const CACHE_TTL = 7 * 60 * 1000; // 7 minutes cache to not destroy pikidiary server
@@ -296,6 +297,59 @@ module.exports = (req, res) => {
                 userBio = bioDiv.html().trim();
             }
 
+            let encodedUserBio = userBio;
+            if (encodedUserBio.length > 0) {
+                encodedUserBio = encodedUserBio
+                    .replace(/<div\s+class=["']br["']><\/div>/gi, '[br]')
+                    .replace(/<img\s+[^>]*src=["']https:\/\/proxy\.pikidiary\.lol\/\?url=([^"']+)["'][^>]*>/gi, (_, encodedUrl) => {
+                        const decodedUrl = decodeURIComponent(encodedUrl);
+                        return `[img]${decodedUrl}[/img]`;
+                    })
+                    .replace(/<a\s+href=["']([^"']+)["'][^>]*>(.*?)<\/a>/gi, (_, href, inner) => {
+                        const content = inner.trim();
+                        return content ? `[url=${href}]${content}[/url]` : `[url=${href}][/url]`;
+                    })
+                    .replace(/<marquee[^>]*>(.*?)<\/marquee>/gi, (_, content) => {
+                        return `[marquee]${content.trim()}[/marquee]`;
+                    })
+                    .replace(/<style>body,body\.dark\{cursor:url\((?:https:\/\/bitview\.lol\?url=)?(https[^)]+)\),auto\}<\/style>/gi, (_, cursorUrl) => {
+                        return `[style=cursor]${cursorUrl}[/style]`;
+                    })
+                    .replace(/<style>body,body\.dark\{background:url\((?:https:\/\/bitview\.lol\?url=)?(https[^)]+)\)\s*repeat\s+fixed\}<\/style>/gi, (_, bgUrl) => {
+                        return `[style=bg]${bgUrl}[/style]`;
+                    })
+                    .replace(/<audio[^>]*src=["']https:\/\/proxy\.pikidiary\.lol\/\?url=([^"']+)["'][^>]*><\/audio>/gi, (_, encodedUrl, offset, fullTag) => {
+                        const decodedUrl = decodeURIComponent(encodedUrl);
+                        const hasLoop = fullTag.includes('loop');
+                        const hasAutoplay = fullTag.includes('autoplay');
+
+                        if (hasLoop && hasAutoplay) {
+                            return `[music=loop,autoplay]${decodedUrl}[/music]`;
+                        } else if (hasLoop) {
+                            return `[music=loop]${decodedUrl}[/music]`;
+                        } else if (hasAutoplay) {
+                            return `[music=autoplay]${decodedUrl}[/music]`;
+                        } else {
+                            return `[music]${decodedUrl}[/music]`;
+                        }
+                    })
+                    .replace(/<span\s+style=["']font-size:\s*13px;\s*line-height:\s*14px["']>(.*?)<\/span>/gi, (_, content) => {
+                        return `[small]${content.trim()}[/small]`;
+                    })
+                    .replace(/<s>(.*?)<\/s>/gi, (_, content) => {
+                        return `[s]${content.trim()}[/s]`;
+                    })
+                    .replace(/<strong>(.*?)<\/strong>/gi, (_, content) => {
+                        return `[b]${content.trim()}[/b]`;
+                    })
+                    .replace(/<em>(.*?)<\/em>/gi, (_, content) => {
+                        return `[i]${content.trim()}[/i]`;
+                    })
+                    .replace(/<u>(.*?)<\/u>/gi, (_, content) => {
+                        return `[u]${content.trim()}[/u]`;
+                    });
+            }
+
 
             // user background showing !!!
             let userBackground = null;
@@ -416,7 +470,7 @@ module.exports = (req, res) => {
                 const postId = post.attr('id');
                 const postUrl = postId ? `${baseUrl}/posts/${postId}` : null;
                 const authorName = post.find('.post-name').text().trim();
-                const rawPostContent = post.find('.post-content > span').html();
+                const rawPostContent = post.find('.post-content > span').html() || 'Post Content cannot be found.';
                 const postContent = rawPostContent
                     .replace(/<br\s*\/?>/gi, '\n')
                     .replace(/\/uploads\/emotes/gi, 'https://allowcors.nomaakip.workers.dev/?url=https://pikidiary.lol/uploads/emotes')
@@ -551,6 +605,9 @@ module.exports = (req, res) => {
                         case 'bio':
                             responseObject.bio = userBio;
                             break;
+                        case 'encodedBio':
+                            responseObject.encodedBio = encodedUserBio;
+                            break;
                         case 'loginStreak':
                             responseObject.loginStreak = loginStreak;
                             break;
@@ -618,6 +675,7 @@ module.exports = (req, res) => {
                     isClub: isClub,
                     isLive: "due to TOS, we can not get this right now.",
                     bio: userBio,
+                    encodedBio: encodedUserBio,
                     loginStreak: loginStreak,
                     achievementsCount: achievementsCount,
                     achievements: achievementsList,
