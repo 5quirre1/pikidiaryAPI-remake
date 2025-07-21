@@ -1,0 +1,196 @@
+{
+  "status": 200,
+  "userId": "due to TOS, we can not get this right now.",
+  "userUrl": "https://pikidiary.lol/@squirrel",
+  "username": "squirrel",
+  "followers": 161,
+  "following": 407,
+  "pfp": "https://pikidiary.lol/uploads/avatars/resized-1753093532422.gif",
+  "banner": "https://pikidiary.lol/uploads/banners/resized-1753102110388.gif",
+  "background": null,
+  "isVerified": true,
+  "isInactive": false,
+  "isAdmin": false,
+  "isBot": false,
+  "isClub": true,
+  "isLive": "due to TOS, we can not get this right now.",
+  "bio": "[img]https://lfm.graybox.lol/?username=squirre1Z&height=39[/img][img]https://files.catbox.moe/yxk5j4.gif[/img]DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;DON'T TAP THE GLASS&nbsp;",
+  "loginStreak": 16,
+  "achievementsCount": 3,
+  "achievements": [
+    {
+      "name": "Buggy",
+      "description": "Lock a reply",
+      "iconUrl": "https://pikidiary.lol/img/achi/buggy.png"
+    },
+    {
+      "name": "#soretro",
+      "description": "Join before 10/10/24",
+      "iconUrl": "https://pikidiary.lol/img/achi/retro.png"
+    },
+    {
+      "name": "Welcome!",
+      "description": "Create a PikiDiary account",
+      "iconUrl": "https://pikidiary.lol/img/achi/new.png"
+    }
+  ],
+  "sectionOrder": [2, 1, 3],
+  "badgeCount": 2,
+  "badges": [
+    {
+      "name": "Verified",
+      "description": null,
+      "iconUrl": "https://pikidiary.lol/img/icons/verified.png"
+    },
+    {
+      "name": "CLUB Member",
+      "description": null,
+      "iconUrl": "https://pikidiary.lol/img/icons/club.png"
+    }
+  ],
+  "pinned": [
+    {
+      "id": "230216",
+      "url": "https://pikidiary.lol/posts/230216",
+      "author": "squirrel",
+      "content": "\u003Ca href=\"https://open.spotify.com/playlist/3S2Y9vUP8vMxRKaks26vMD?si=d6cc636ebd384143&amp;pt=b22c3ff0056418fc0cdfea428367a405\" target=\"_blank\"\u003Ehttps://open.spotify.com/playlist/3S2Y9vUP8vMxRKaks26vMD?si=d6cc636ebd384143&amp;pt=b22c3ff0056418fc0cdfea428367a405\u003C/a\u003E I made new public pikidiary spotify thibg idk if this has a one person linit invite but put music!!!",
+      "createdAt": "3 hours ago",
+      "media": [],
+      "likes": 2,
+      "isLocked": false,
+      "isReply": false,
+      "comments": 2
+    },
+    {
+      "id": "228517",
+      "url": "https://pikidiary.lol/posts/228517",
+      "author": "squirrel",
+      "content": "thank you @potd99 for being my 150th follower!!!1!!",
+      "createdAt": "1 day ago",
+      "media": [],
+      "likes": 7,
+      "isLocked": false,
+      "isReply": false,
+      "comments": 3
+    },
+    {
+      "id": "226486",
+      "url": "https://pikidiary.lol/posts/226486",
+      "author": "squirrel",
+      "content": "I am honors to be verified thank you Jax pikidiary for awarding me this badge thank you pikidiary\n\nI will continue to be stupid and happy about pikidiary",
+      "createdAt": "2 days ago",
+      "media": [],
+      "likes": 7,
+      "isLocked": false,
+      "isReply": false,
+      "comments": 2
+    },
+    {
+      "id": "202286",
+      "url": "https://pikidiary.lol/posts/202286",
+      "author": "squirrel",
+      "content": "100 followers?!!/1.1/?!?!?!/1W WOWN WOWOW W:W?W?W?WIWIWIWI??????",
+      "createdAt": "2 months ago",
+      "media": [
+        {
+          "type": "image",
+          "url": "https://proxy.pikidiary.lol/?url=https%3A%2F%2Ffiles.catbox.moe%2F2pq91n.png"
+        }
+      ],
+      "likes": 7,
+      "isLocked": false,
+      "isReply": false,
+      "comments": 5
+    },
+    {
+      "id": "133974",
+      "url": "https://pikidiary.lol/posts/133974",
+      "author": "squirrel",
+      "content": "wow",
+      "createdAt": "5 months ago",
+      "media": [
+        {
+          "type": "image",
+          "url": "https://proxy.pikidiary.lol/?url=https%3A%2F%2Ffiles.catbox.moe%2Fgapl6b.jpg"
+        }
+      ],
+      "likes": 10,
+      "isLocked": false,
+      "isReply": false,
+      "comments": 0
+    },
+    {
+      "id": "224",
+      "url": "https://pikidiary.lol/posts/224",
+      "author": "squirrel",
+      "content": "I feel so Sigma",
+      "createdAt": "11 months ago",
+      "media": [],
+      "likes": 5,
+      "isLocked": false,
+      "isReply": false,
+      "comments": 0
+    }
+  ],
+  "posts": [
+    {
+      "id": "230413",
+      "url": "https://pikidiary.lol/posts/230413",
+      "author": "squirrel",
+      "content": "@burhfart tea",
+      "createdAt": "20 minutes ago",
+      "media": [],
+      "likes": 2,
+      "isLocked": false,
+      "isReply": true,
+      "replyInfo": {
+        "parentId": "229476",
+        "url": "https://pikidiary.lol/posts/229476"
+      }
+    },
+    {
+      "id": "230412",
+      "url": "https://pikidiary.lol/posts/230412",
+      "author": "squirrel",
+      "content": "my little brother liked don't tap the glass, he may be stupid but at least he knows peak",
+      "createdAt": "21 minutes ago",
+      "media": [],
+      "likes": 4,
+      "isLocked": false,
+      "isReply": false,
+      "comments": 0
+    },
+    {
+      "id": "230265",
+      "url": "https://pikidiary.lol/posts/230265",
+      "author": "squirrel",
+      "content": "@IQ yes Tyler is rainbows and butterflies and bunnies and birds sing when he walks and shit",
+      "createdAt": "2 hours ago",
+      "media": [],
+      "likes": 3,
+      "isLocked": false,
+      "isReply": true,
+      "replyInfo": {
+        "parentId": "230260",
+        "url": "https://pikidiary.lol/posts/230260"
+      }
+    },
+    {
+      "id": "230259",
+      "url": "https://pikidiary.lol/posts/230259",
+      "author": "squirrel",
+      "content": "new peak banner rate 1 through 10",
+      "createdAt": "2 hours ago",
+      "media": [
+        {
+          "type": "image",
+          "url": "https://proxy.pikidiary.lol/?url=https%3A%2F%2Ffiles.catbox.moe%2Fnu6v13.gif"
+        }
+      ],
+      "likes": 3,
+      "isLocked": false,
+      "isReply": false,
+      "comments": 0
+    }
+  ]
+}
