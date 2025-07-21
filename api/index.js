@@ -347,6 +347,9 @@ module.exports = (req, res) => {
                     })
                     .replace(/<u>(.*?)<\/u>/gi, (_, content) => {
                         return `[u]${content.trim()}[/u]`;
+                    })
+                    .replace(/<style>body,body\.dark\{background:\s*(#[\da-fA-F]{3,6})\}<\/style>/gi, (_, bgColor) => {
+                        return `[style=bg]${bgColor}[/style]`;
                     });
             }
 
@@ -603,10 +606,7 @@ module.exports = (req, res) => {
                             responseObject.isVerified = isVerified;
                             break;
                         case 'bio':
-                            responseObject.bio = userBio;
-                            break;
-                        case 'encodedBio':
-                            responseObject.encodedBio = encodedUserBio;
+                            responseObject.bio = encodedUserBio;
                             break;
                         case 'loginStreak':
                             responseObject.loginStreak = loginStreak;
@@ -674,8 +674,7 @@ module.exports = (req, res) => {
                     isBot: isBot,
                     isClub: isClub,
                     isLive: "due to TOS, we can not get this right now.",
-                    bio: userBio,
-                    encodedBio: encodedUserBio,
+                    bio: encodedUserBio,
                     loginStreak: loginStreak,
                     achievementsCount: achievementsCount,
                     achievements: achievementsList,
