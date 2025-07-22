@@ -473,7 +473,7 @@ module.exports = (req, res) => {
                 const postId = post.attr('id');
                 const postUrl = postId ? `${baseUrl}/posts/${postId}` : null;
                 const authorName = post.find('.post-name').text().trim();
-                const rawPostContent = post.find('.post-content > span').html() || 'Post Content cannot be found.';
+                const rawPostContent = post.find('.post-content > span').html() || '';
                 const postContent = rawPostContent
                     .replace(/<br\s*\/?>/gi, '\n')
                     .replace(/<span class="nametag-wrapper">(?:\s*)<a [^>]*>.*?<\/a>(?:\s*)<a [^>]*>(.*?)<\/a>(?:\s*)<\/span>/g,'$1')
