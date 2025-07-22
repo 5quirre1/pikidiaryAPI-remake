@@ -9,8 +9,9 @@
     "deploy": "vercel deploy --prod"
   },
   "dependencies": {
-    "https": "^1.0.0",
     "cheerio": "^1.0.0",
+    "css": "^3.0.0",
+    "https": "^1.0.0",
     "querystring": "^0.2.0"
   },
   "devDependencies": {
