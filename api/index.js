@@ -34,7 +34,6 @@
  */
 
 const https = require('https');
-const css = require('css');
 const cheerio = require('cheerio');
 const { encode } = require('punycode');
 
@@ -356,38 +355,33 @@ module.exports = (req, res) => {
 
 
             // user background showing !!!
+            let userBackground = null;
+            if (bioDiv.length > 0) {
+                const styleTag = bioDiv.find('style');
+                if (styleTag.length > 0) {
+                    for (let i = 0; i < styleTag.length; i++) {
+                        const styleContent = styleTag.eq(i).html();
+                        const backgroundMatch = styleContent.match(/background:\s*([^}]*)/);
+                        if (backgroundMatch && backgroundMatch[1]) {
+                            userBackground = backgroundMatch[1].trim();
 
-            function getBodyBackground() {
-                let bgImage = null;
-                let bgColor = null;
-
-                $('style').each((_, el) => {
-                    const ast = css.parse($(el).html());
-                    for (const rule of ast.stylesheet.rules) {
-                        if (rule.type === 'rule' && rule.selectors.includes('body')) {
-                            for (const decl of rule.declarations) {
-                                if (!decl.property) continue;
-                                const prop = decl.property.toLowerCase();
-                                const val = decl.value.replace(/!important/g, '').trim();
-
-                                if (prop === 'background-image' && val && val !== 'none') {
-                                    bgImage = val;
-                                } else if (prop === 'background-color' && val) {
-                                    bgColor = val;
-                                } else if (prop === 'background' && val) {
-                                    if (val.includes('url(')) bgImage = val;
-                                    else bgColor = val;
+                            if (userBackground.includes('#')) {
+                                // color
+                                const colorMatch = userBackground.match(/#[a-fA-F0-9]+/);
+                                if (colorMatch) {
+                                    userBackground = colorMatch[0];
+                                }
+                            } else if (userBackground.includes('url(')) {
+                                // background url
+                                const urlMatch = userBackground.match(/url\(['"]?(.*?)['"]?\)/);
+                                if (urlMatch && urlMatch[1]) {
+                                    userBackground = urlMatch[1];
                                 }
                             }
                         }
                     }
-                });
-
-                return bgImage || bgColor || null;
+                }
             }
-
-            const userBackground = getBodyBackground();
-            console.log(userBackground)
 
             let loginStreak = null;
             const streakContainer = $('div[style*="background:#fff4e5;"][style*="border:solid 1px #ffa726;"]');
@@ -482,7 +476,7 @@ module.exports = (req, res) => {
                 const rawPostContent = post.find('.post-content > span').html() || '';
                 const postContent = rawPostContent
                     .replace(/<br\s*\/?>/gi, '\n')
-                    .replace(/<span class="nametag-wrapper">(?:\s*)<a [^>]*>.*?<\/a>(?:\s*)<a [^>]*>(.*?)<\/a>(?:\s*)<\/span>/g, '$1')
+                    .replace(/<span class="nametag-wrapper">(?:\s*)<a [^>]*>.*?<\/a>(?:\s*)<a [^>]*>(.*?)<\/a>(?:\s*)<\/span>/g,'$1')
                     .replace(/<a[^>]*class="[^"]*\bping\b[^"]*"[^>]*>(.*?)<\/a>/g, '$1')
                     .replace(/\/uploads\/emotes/gi, 'https://allowcors.nomaakip.workers.dev/?url=https://pikidiary.lol/uploads/emotes')
                     .trim();
