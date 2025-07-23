@@ -354,9 +354,31 @@ module.exports = (req, res) => {
             }
 
 
+            
             // user background showing !!!
             let userBackground = null;
-            if (bioDiv.length > 0) {
+            // for the new  no bbcode bacjgrounds
+            const headStyles = $('head style').html();
+            if (headStyles) {
+                const backgroundColorMatch = headStyles.match(/background-color:\s*([^;!]+)[;!]/);
+                const backgroundImageMatch = headStyles.match(/background-image:\s*url\(([^)]+)\)[;!]/);
+
+                const bgColor = backgroundColorMatch ? backgroundColorMatch[1].trim() : null;
+                let bgImage = backgroundImageMatch ? backgroundImageMatch[1].trim() : null;
+
+                if (bgImage === '/' || bgImage === '"/"' || bgImage === "'/'") {
+                    bgImage = null;
+                }
+                if (bgImage) {
+                    bgImage = bgImage.replace(/^['"]|['"]$/g, '');
+                    userBackground = `https://pikidiary.lol${bgImage}`;
+                } else if (bgColor) {
+                    userBackground = bgColor;
+                }
+            }
+
+            // for bbcode bio background define stuff
+            if (!userBackground && bioDiv.length > 0) {
                 const styleTag = bioDiv.find('style');
                 if (styleTag.length > 0) {
                     for (let i = 0; i < styleTag.length; i++) {
