@@ -498,8 +498,6 @@ module.exports = (req, res) => {
                 const rawPostContent = post.find('.post-content > span').html() || '';
                 const postContent = rawPostContent
                     .replace(/<br\s*\/?>/gi, '\n')
-                    .replace(/<span class="nametag-wrapper">(?:\s*)<a [^>]*>.*?<\/a>(?:\s*)<a [^>]*>(.*?)<\/a>(?:\s*)<\/span>/g,'$1')
-                    .replace(/<a[^>]*class="[^"]*\bping\b[^"]*"[^>]*>(.*?)<\/a>/g, '$1')
                     .replace(/\/uploads\/emotes/gi, 'https://allowcors.nomaakip.workers.dev/?url=https://pikidiary.lol/uploads/emotes')
                     .trim();
                 const createdAt = post.find('span[style*="line-height:11px;margin-top:-1px"]').text().trim();
