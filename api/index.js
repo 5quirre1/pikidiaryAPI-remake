@@ -35,7 +35,6 @@
 
 const https = require('https');
 const cheerio = require('cheerio');
-const { encode } = require('punycode');
 
 const cache = new Map();
 const CACHE_TTL = 7 * 60 * 1000; // 7 minutes cache to not destroy pikidiary server
@@ -175,6 +174,28 @@ module.exports = (req, res) => {
         });
     };
 
+    // oh. my. god. jax made api to get userId. tha k you jax!!!!
+    const getTheFrigginUserId = (username) => {
+        return new Promise((resolve, reject) => {
+            const apiUrl = `https://pikidiary.lol/api/user/${username}`;
+            
+            fetchData(apiUrl, standardHeaders)
+                .then(response => {
+                    try {
+                        const userData = JSON.parse(response.data);
+                        resolve(userData.id || null);
+                    } catch (error) {
+                        console.error("error parsing to get id: ", error);
+                        resolve(null);
+                    }
+                })
+                .catch(error => {
+                    console.error("error fetching:  ", error);
+                    resolve(null);
+                });
+        });
+    };
+
     // have to do this or it won't work, doesn't matter really, everyone already has your ip :p
     const userIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
@@ -186,7 +207,7 @@ module.exports = (req, res) => {
         'Connection': 'keep-alive',
     };
 
-    const processUserPage = async (data) => {
+    const processUserPage = async (data, userId = null) => {
         try {
             const $ = cheerio.load(data);
 
@@ -664,7 +685,7 @@ module.exports = (req, res) => {
                             responseObject.isInactive = isInactive;
                             break;
                         case 'userId':
-                            responseObject.userId = "due to TOS, we can not get this right now.";
+                            responseObject.userId = userId;
                             break;
                         case 'isLive':
                             responseObject.isLive = "due to TOS, we can not get this right now.";
@@ -682,7 +703,7 @@ module.exports = (req, res) => {
             } else {
                 responseObject = {
                     status: 200,
-                    userId: "due to TOS, we can not get this right now.",
+                    userId: userId,
                     userUrl: url,
                     username: extractedUsername,
                     followers: followersCount,
@@ -730,17 +751,21 @@ module.exports = (req, res) => {
         }
     };
 
-    fetchData(url, standardHeaders)
-        .then(response => {
-            if (response.data.includes('User not found')) {
-                res.status(404).json({
-                    status: 404,
-                    error: 'user not found'
-                });
-                return;
-            }
+    // amazing
+    getTheFrigginUserId(username)
+        .then(userId => {
+            return fetchData(url, standardHeaders)
+                .then(response => {
+                    if (response.data.includes('User not found')) {
+                        res.status(404).json({
+                            status: 404,
+                            error: 'user not found'
+                        });
+                        return;
+                    }
 
-            processUserPage(response.data);
+                    processUserPage(response.data, userId);
+                });
         })
         .catch(error => {
             if (error.statusCode === 404) {
