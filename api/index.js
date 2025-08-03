@@ -271,8 +271,7 @@ module.exports = (req, res) => {
             }
 
             let bannerUrl = null;
-            const profMain = $('.prof-main');
-            const bannerImg = profMain.find('img[style*="object-fit:cover;width:100%;height:75px;box-sizing:border-box;padding:2px;background-color:Var(--prof-section-background);border:var(--prof-border) 1px solid"]');
+            const bannerImg = $('.prof-banner-cont img.prof-banner');
             if (bannerImg.length > 0) {
                 const relativeBannerPath = bannerImg.attr('src');
                 if (relativeBannerPath) {
