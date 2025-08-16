@@ -6,7 +6,8 @@
 
 ---
 
-<a href="https://pikidiary-api.vercel.app/?username=squirrel"><img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/7789fdbe-b35a-4cac-a3e6-2e0b44ee3dff" /></a>
+<img width="1919" height="909" alt="image" src="https://github.com/user-attachments/assets/8b625e88-7c6d-47bf-b357-c51f5f05128f" />
+
 
 
 
