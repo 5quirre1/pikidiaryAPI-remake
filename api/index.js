@@ -81,7 +81,7 @@ module.exports = (req, res) => {
                     "username", "followers", "following", "pfp", "banner", "background",
                     "isVerified", "isAdmin", "isBot", "isClub", "isInactive", "bio", "loginStreak",
                     "achievementsCount", "achievements", "badgeCount", "badges", "posts", "pinned",
-                    "userId", "isLive", "liveInfo", "sectionOrder"
+                    "isLive", "liveInfo", "sectionOrder"
                 ],
                 examples: [
                     "/?username=exampleuser",
@@ -174,27 +174,7 @@ module.exports = (req, res) => {
         });
     };
 
-    // oh. my. god. jax made api to get userId. tha k you jax!!!!
-    const getTheFrigginUserId = (username) => {
-        return new Promise((resolve, reject) => {
-            const apiUrl = `https://pikidiary.lol/api/user/${username}`;
-            
-            fetchData(apiUrl, standardHeaders)
-                .then(response => {
-                    try {
-                        const userData = JSON.parse(response.data);
-                        resolve(userData.id || null);
-                    } catch (error) {
-                        console.error("error parsing to get id: ", error);
-                        resolve(null);
-                    }
-                })
-                .catch(error => {
-                    console.error("error fetching:  ", error);
-                    resolve(null);
-                });
-        });
-    };
+    // jax made it impossible to get the user's id because she made it so u have to login lawlll
 
     // have to do this or it won't work, doesn't matter really, everyone already has your ip :p
     const userIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -207,7 +187,7 @@ module.exports = (req, res) => {
         'Connection': 'keep-alive',
     };
 
-    const processUserPage = async (data, userId = null) => {
+    const processUserPage = async (data) => {
         try {
             const $ = cheerio.load(data);
 
@@ -374,7 +354,7 @@ module.exports = (req, res) => {
             }
 
 
-            
+
             // user background showing !!!
             let userBackground = null;
             // for the new  no bbcode bacjgrounds
@@ -683,9 +663,6 @@ module.exports = (req, res) => {
                         case 'isInactive':
                             responseObject.isInactive = isInactive;
                             break;
-                        case 'userId':
-                            responseObject.userId = userId;
-                            break;
                         case 'isLive':
                             responseObject.isLive = "due to TOS, we can not get this right now.";
                             break;
@@ -702,7 +679,6 @@ module.exports = (req, res) => {
             } else {
                 responseObject = {
                     status: 200,
-                    userId: userId,
                     userUrl: url,
                     username: extractedUsername,
                     followers: followersCount,
@@ -750,21 +726,18 @@ module.exports = (req, res) => {
         }
     };
 
-    // amazing
-    getTheFrigginUserId(username)
-        .then(userId => {
-            return fetchData(url, standardHeaders)
-                .then(response => {
-                    if (response.data.includes('User not found')) {
-                        res.status(404).json({
-                            status: 404,
-                            error: 'user not found'
-                        });
-                        return;
-                    }
 
-                    processUserPage(response.data, userId);
+    // ok ig
+    fetchData(url, standardHeaders)
+        .then(response => {
+            if (response.data.includes('User not found')) {
+                res.status(404).json({
+                    status: 404,
+                    error: 'user not found'
                 });
+                return;
+            }
+            processUserPage(response.data);
         })
         .catch(error => {
             if (error.statusCode === 404) {
