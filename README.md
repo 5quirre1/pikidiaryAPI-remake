@@ -6,11 +6,12 @@
 
 ---
 
-![image](https://github.com/user-attachments/assets/7623b299-5220-4eb4-beff-06428e16c711)
+<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/7789fdbe-b35a-4cac-a3e6-2e0b44ee3dff" />
+
 
 
 ## docs (sorta)
 
 ### how to get data for a user
 ---
-**The API has a username query that you are able to use for this, e.g: ```https://pikidiary-api.vercel.app/?username=runningman```!**
+**The API has a username query that you are able to use for this, e.g: ```https://pikidiary-api.vercel.app/?username=username```!**
